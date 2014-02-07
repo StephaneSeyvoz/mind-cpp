@@ -124,6 +124,37 @@ public:
 // Composite body
 
 CompositeBody(definition) ::= <<
+<if (definition.astDecorations.("is-singleton"))><CompositeSingletonBody(definition=definition)><else><CompositeMultiBody(definition=definition)><endif>
+>>
+
+CompositeSingletonBody(definition) ::= <<
+private:
+  // constructor and destructor, using singleton design pattern
+  <definition.name;format="toCName">Definition(){};
+  <definition.name;format="toCName">Definition(<definition.name;format="toCName">Definition const&){};
+  void operator = (<definition.name;format="toCName">Definition const&);
+  ~<definition.name;format="toCName">Definition(){};
+
+protected:
+  // sub-components
+  <SubComponentsDecl(definition=definition)>
+
+public:
+  /**
+   * Returns the unique instance of the component.
+   * \return The <definition.name;format="toCName">Definition unique component instance.
+   */
+  static <definition.name;format="toCName">Definition & getInstance() {
+    static <definition.name;format="toCName">Definition singleton;
+    
+    // bindings initialization between sub-components
+    <SingletonInitBindings(definition=definition)>
+    
+    return singleton;
+  }
+>>
+
+CompositeMultiBody(definition) ::= <<
 protected:
   // sub-components
   <SubComponentsDecl(definition=definition)>
@@ -131,7 +162,6 @@ protected:
 public:
   // bindings initialization between sub-components
   <ContructorDeclInitBindings(definition=definition)>
-
 >>
 
 // -----------------------------------------------------------------------------
@@ -218,7 +248,7 @@ ContructorDeclInitBindings(definition) ::= <<
 <definition.name;format="toCName">Definition(){
   // Initialize singleton pointer with according instance
   <if (definition.astDecorations.("singletons"))>
-  <InitSingletonPointers(components=definition.astDecorations.("singletons"))>
+  <MultiInitSingletonPointers(components=definition.astDecorations.("singletons"))>
   <endif>
   
   // Initialize bindings
@@ -232,8 +262,23 @@ ContructorDeclInitBindings(definition) ::= <<
 ~<definition.name;format="toCName">Definition(){};
 >>
 
-InitSingletonPointers(components) ::= <<
+SingletonInitBindings(definition) ::= <<
+  <SingletonInitSingletonPointers(components=definition.astDecorations.("singletons"))>
+  
+  // Initialize bindings
+  <if (definition.astNodeTypes.("binding"))>
+    <if (definition.bindings)>
+  <definition.bindings:{singleton.<if (it.astDecorations.("fromComponent-singleton"))><DeclareBindingSourceSingletonInit(binding=it)><else><DeclareBindingDefaultInit(binding=it)><endif>}; separator="\n">
+    <endif>
+  <endif>
+>>
+
+MultiInitSingletonPointers(components) ::= <<
 <components:{<InitSingletonPointer(component=it)>}; separator="\n">
+>>
+
+SingletonInitSingletonPointers(components) ::= <<
+<components:{singleton.<InitSingletonPointer(component=it)>}; separator="\n">
 >>
 
 InitSingletonPointer(component) ::= <<
