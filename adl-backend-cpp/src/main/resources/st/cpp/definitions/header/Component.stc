@@ -73,28 +73,15 @@ namespace __ns_<definition.name;format="toCName"> {
 // Component typedef
 
 DefinitionClassDef(definition) ::= <<
+/**
+ * This class represents the <definition.name> component definition.
+ */
 class <definition.name;format="toCName">Definition <FullInheritanceDecl(definition=definition)> {
-<if (!(definition.astNodeTypes.("component")))> <! constructor and destructor for primitives !>
-public:
-  // constructor and destructor
-  inline <definition.name;format="toCName">Definition(){};
-  inline ~<definition.name;format="toCName">Definition(){};
-<endif>
-
-<if (definition.astNodeTypes.("component"))>
-public:
-  // sub-components
-  <SubComponentsDecl(definition=definition)>
-
-public:
-  // bindings initialization between sub-components
-  <ContructorDeclInitBindings(definition=definition)>
-
-<endif>
+<if (definition.astNodeTypes.("component"))><CompositeBody(definition=definition)><else><PrimitiveBody(definition=definition)><endif>
 };
 >>
 
-//  -----------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
 // Full inheritance
 
 FullInheritanceDecl(definition) ::= <<
@@ -102,15 +89,61 @@ FullInheritanceDecl(definition) ::= <<
 >>
 
 // -----------------------------------------------------------------------------
+// Primitive body
+
+PrimitiveBody(definition) ::= <<
+<if (definition.astDecorations.("is-singleton"))><PrimitiveSingletonBody(definition=definition)><else><PrimitiveMultiBody(definition=definition)><endif>
+>>
+
+PrimitiveSingletonBody(definition) ::= <<
+private:
+  // constructor and destructor, using singleton design pattern
+  <definition.name;format="toCName">Definition(){};
+  <definition.name;format="toCName">Definition(<definition.name;format="toCName">Definition const&){};
+  void operator = (<definition.name;format="toCName">Definition const&);
+  ~<definition.name;format="toCName">Definition(){};
+public:
+  /**
+   * Returns the unique instance of the component.
+   * \return The <definition.name;format="toCName">Definition unique component instance.
+   */
+  static <definition.name;format="toCName">Definition & getInstance() {
+    static <definition.name;format="toCName">Definition singleton;
+    return singleton;
+  }
+>>
+
+PrimitiveMultiBody(definition) ::= <<
+public:
+  // constructor and destructor
+  inline <definition.name;format="toCName">Definition(){};
+  inline ~<definition.name;format="toCName">Definition(){};
+>>
+
+// -----------------------------------------------------------------------------
+// Composite body
+
+CompositeBody(definition) ::= <<
+protected:
+  // sub-components
+  <SubComponentsDecl(definition=definition)>
+
+public:
+  // bindings initialization between sub-components
+  <ContructorDeclInitBindings(definition=definition)>
+
+>>
+
+// -----------------------------------------------------------------------------
 // Internal data (private data + client interfaces references)
 
 InternalDataDecl(definition) ::= <<
 class internal_data {
-public:
+protected:
   inline internal_data(){};
   virtual inline ~internal_data(){};
 <if (definition.astDecorations.("clientItfInstances"))>
-
+public:
   // client interface references 
   <definition.astDecorations.("clientItfInstances"):{<InterfaceReferencesDecl(itf=it)>}; separator="\n"> <! DeclareClientReferences will filter server interfaces !>
 <endif>
@@ -166,20 +199,32 @@ InterfaceReferencesDecl(itf) ::= <<
 // Sub-components & internal bindings
 
 SubComponentsDecl(definition) ::= <<
-<if (definition.components)>
-<definition.components:ComponentFieldDecl(component=it); separator="\n">
-<endif>
+<if (definition.components)><definition.components:ComponentFieldDecl(component=it); separator="\n"><endif>
 >>
 
 ComponentFieldDecl(component) ::= <<
+<if (component.astDecorations.("resolved-component-definition").definition.astDecorations.("is-singleton"))><SingletonComponentFieldDecl(component=component)><else><MultiComponentFieldDecl(component=component)><endif>
+>>
+
+MultiComponentFieldDecl(component) ::= <<
 <component.definitionReference.name; format="toCName">Definition <component.name; format="toCName">;
+>>
+
+SingletonComponentFieldDecl(component) ::= <<
+<component.definitionReference.name; format="toCName">Definition *<component.name; format="toCName">;
 >>
 
 ContructorDeclInitBindings(definition) ::= <<
 <definition.name;format="toCName">Definition(){
+  // Initialize singleton pointer with according instance
+  <if (definition.astDecorations.("singletons"))>
+  <InitSingletonPointers(components=definition.astDecorations.("singletons"))>
+  <endif>
+  
+  // Initialize bindings
   <if (definition.astNodeTypes.("binding"))>
     <if (definition.bindings)>
-  <definition.bindings:{<DeclareBindingDefaultInit(binding=it)>}; separator="\n">
+  <definition.bindings:{<if (it.astDecorations.("fromComponent-singleton"))><DeclareBindingSourceSingletonInit(binding=it)><else><DeclareBindingDefaultInit(binding=it)><endif>}; separator="\n">
     <endif>
   <endif>
 }
@@ -187,8 +232,20 @@ ContructorDeclInitBindings(definition) ::= <<
 ~<definition.name;format="toCName">Definition(){};
 >>
 
+InitSingletonPointers(components) ::= <<
+<components:{<InitSingletonPointer(component=it)>}; separator="\n">
+>>
+
+InitSingletonPointer(component) ::= <<
+<component.name> = &(<component.astDecorations.("resolved-component-definition").definition.name;format="toCName">Definition::getInstance());
+>>
+
 DeclareBindingDefaultInit(binding) ::= <<
 <binding.fromComponent>.<binding.fromInterface>.reference=&<binding.toComponent>;
+>>
+
+DeclareBindingSourceSingletonInit(binding) ::= <<
+<binding.fromComponent>-\><binding.fromInterface>.reference=&<binding.toComponent>;
 >>
 
 // -----------------------------------------------------------------------------

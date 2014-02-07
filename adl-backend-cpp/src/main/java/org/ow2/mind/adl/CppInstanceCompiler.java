@@ -50,6 +50,16 @@ public class CppInstanceCompiler extends BasicInstanceCompiler {
       final InstancesDescriptor instanceDesc, final Map<Object, Object> context)
       throws ADLException {
 
+    final List<CompilationCommand> compilationTasks = new ArrayList<CompilationCommand>();
+
+    /**
+     * In this implementation we only need to create the toplevel instance, not
+     * the others.
+     */
+
+    if (instanceDesc.topLevelDefinition != instanceDesc.instanceDefinition)
+      return compilationTasks;
+
     instanceSourceGeneratorItf.visit(instanceDesc, context);
     final String instancesFileName = CppInstanceSourceGenerator
         .getInstancesFileName(instanceDesc);
@@ -74,7 +84,6 @@ public class CppInstanceCompiler extends BasicInstanceCompiler {
 
     gccCommand.setAllDependenciesManaged(true);
 
-    final List<CompilationCommand> compilationTasks = new ArrayList<CompilationCommand>();
     compilationTasks.add(gccCommand);
 
     return compilationTasks;

@@ -27,8 +27,6 @@ import static org.ow2.mind.PathHelper.fullyQualifiedNameToPath;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
@@ -108,28 +106,20 @@ public class CppInstanceSourceGenerator extends AbstractSourceGenerator
     if (regenerate(outputFile, instanceDesc.topLevelDefinition, context)) {
 
       final StringTemplate st;
-      if (instanceDesc.topLevelDefinition == instanceDesc.instanceDefinition) {
-        st = getInstanceOf("TopLevelInstances");
+      if (instanceDesc.topLevelDefinition != instanceDesc.instanceDefinition)
+        return;
 
-        st.setAttribute("topLevelDefinition", instanceDesc.topLevelDefinition);
-        st.setAttribute("instances", instanceDesc.instances);
+      st = getInstanceOf("TopLevelInstances");
 
-        final Set<Definition> definitions = new LinkedHashSet<Definition>();
-        for (final ComponentGraph instance : instanceDesc.instances) {
-          addDefinitions(instance, definitions);
-        }
+      st.setAttribute("topLevelDefinition", instanceDesc.topLevelDefinition);
+      st.setAttribute("instances", instanceDesc.instances);
 
-        st.setAttribute("definitions", definitions);
-      } else {
-        st = getInstanceOf("ComponentInstances");
-
-        st.setAttribute("topLevelDefinition", instanceDesc.topLevelDefinition);
-        st.setAttribute("definition", instanceDesc.instanceDefinition);
-        st.setAttribute("instances", instanceDesc.instances);
-
-        // navigation to build name from root
-        decorateWithNameFromRoot(instanceDesc.instances);
+      final Set<Definition> definitions = new LinkedHashSet<Definition>();
+      for (final ComponentGraph instance : instanceDesc.instances) {
+        addDefinitions(instance, definitions);
       }
+
+      st.setAttribute("definitions", definitions);
 
       try {
         SourceFileWriter.writeToFile(outputFile, st.toString());
@@ -138,45 +128,6 @@ public class CppInstanceSourceGenerator extends AbstractSourceGenerator
             outputFile.getAbsolutePath());
       }
     }
-  }
-
-  /**
-   * This method allows to build an instance name path from the root component,
-   * navigating upwards the tree.
-   * 
-   * @param instances
-   */
-  private void decorateWithNameFromRoot(
-      final Collection<ComponentGraph> instances) {
-
-    for (final ComponentGraph instance : instances) {
-      final ComponentGraph[] parents = instance.getParents();
-      // Assume there is only one parent ?
-
-      if (parents.length == 1) {
-        final Collection<ComponentGraph> parentGraphInList = new ArrayList<ComponentGraph>();
-        parentGraphInList.add(parents[0]);
-
-        // go upwards and decorate with name
-        decorateWithNameFromRoot(parentGraphInList);
-
-        // get resulting name from going upwards
-        String previousNameInParent = (String) instance
-            .getDecoration("nameInParent");
-
-        // concatenate the new name
-        if (previousNameInParent == null) previousNameInParent = "";
-
-        instance.setDecoration("nameInParent", previousNameInParent + "."
-            + instance.getNameInParent(parents[0]));
-
-      } else if (parents.length > 1)
-        // TODO: change with error log to throw a fatal exception
-        cppInstanceLogger
-            .severe("More than one parent encountered for instance "
-                + instance.getDecoration("instance-name") + " !");
-    }
-
   }
 
   protected void addDefinitions(final ComponentGraph graph,
