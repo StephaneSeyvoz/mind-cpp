@@ -195,6 +195,7 @@ exec "$JAVACMD" \
   -Dmindc.launcher.name=mindc \
   ${LAUNCHER} \
   --cpp \
+  --flatten \
   -src-path="${MIND_RUNTIME}" \
   "$@"
 
