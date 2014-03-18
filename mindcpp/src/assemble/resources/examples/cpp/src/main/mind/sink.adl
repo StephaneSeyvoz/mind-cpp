@@ -1,0 +1,5 @@
+primitive sink {
+    provides api.uniop	as inputItf;
+    
+    source sink.cpp;
+}

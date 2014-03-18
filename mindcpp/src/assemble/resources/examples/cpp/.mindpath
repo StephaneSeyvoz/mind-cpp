@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mindpath>
+	<mindpathentry kind="SOURCE" path="/Autoincrementer-NMF-style/runtime"/>
+	<mindpathentry kind="SOURCE" path="/Autoincrementer-NMF-style/src/main/mind"/>
+	<mindpathentry kind="SOURCE" path="/Autoincrementer-NMF-style/src/test/mind"/>
+	<mindpathentry kind="SOURCE" path="/Autoincrementer-NMF-style/lib"/>
+	<mindpathentry kind="APPLI" path="autoincrementer:autoincrementer"/>
+</mindpath>

@@ -1,0 +1,7 @@
+primitive generator {
+    provides mindcpp.boot.Main		as entryPoint;
+	requires optional api.uniop		as outputItf;
+	requires optional api.uniopbi	as outputbiItf;
+	
+	source generator.cpp;
+}

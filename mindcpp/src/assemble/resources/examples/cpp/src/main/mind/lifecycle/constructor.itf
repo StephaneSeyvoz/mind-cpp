@@ -1,0 +1,26 @@
+#include <nmf/types.idt>
+
+/*!
+ * \brief C/C++ component constructor interface
+ *
+ * The lifecycle.constructor interface must be implement
+ * by a component in order to provide a constructor that will be called by
+ * the component manager when the component will be instantiated.
+ *
+ * Such code in your primitive ADL component must be used to provide constructor:
+ * \code
+ * primitive your.component.name {
+ *     ...
+ *     provides lifecycle.constructor as constructor
+ *     ...
+ * }
+ * \endcode
+ */
+interface lifecycle.constructor {
+
+    /*!
+     * \brief Interface constructor interface method.
+     */
+    t_nmf_error construct(void);
+
+}
