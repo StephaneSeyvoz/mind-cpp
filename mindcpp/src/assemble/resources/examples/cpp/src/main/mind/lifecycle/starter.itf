@@ -1,0 +1,22 @@
+/*!
+ * \brief C/C++ component starter interface
+ *
+ * The lifecycle.starter interface must be implement
+ * by a component in order to provide an starter that will be called by
+ * the component manager when the component will enter to RUNNABLE state.
+ *
+ * Such code in your primitive ADL component must be used to provide starter:
+ * \code
+ * primitive your.component.name {
+ *     ...
+ *     provides lifecycle.starter as starter
+ *     ...
+ * }
+ * \endcode
+ */
+interface lifecycle.starter {
+    /*!
+     * \brief Start interface method.
+     */
+    void start(void);
+}
