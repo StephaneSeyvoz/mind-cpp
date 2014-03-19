@@ -1,0 +1,12 @@
+primitive incrementer {
+    provides lifecycle.starter	as starter;
+	provides lifecycle.stopper	as stopper;
+	
+	provides api.uniop			as inputItf;
+	requires optional api.uniop	as outputItf;
+	
+	provides api.uniopbi		as inputbiItf;
+	requires optional api.uniopbi	as outputbiItf;
+	
+	source incrementer.cpp;
+}
