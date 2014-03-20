@@ -61,4 +61,38 @@
 		<module>idl-frontend-cpp</module>
 	</modules>
 
+	<dependencyManagement>
+        <dependencies>
+			<dependency>
+				<groupId>${project.groupId}</groupId>
+				<artifactId>adl-backend-cpp</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			
+			<dependency>
+				<groupId>${project.groupId}</groupId>
+				<artifactId>fractal-runtime-cpp</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			
+			<dependency>
+				<groupId>${project.groupId}</groupId>
+				<artifactId>idl-backend-cpp</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			
+			<dependency>
+				<groupId>${project.groupId}</groupId>
+				<artifactId>mindcpp</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			
+			<dependency>
+				<groupId>${project.groupId}</groupId>
+				<artifactId>idl-frontend-cpp</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+        </dependencies>
+	</dependencyManagement>
+
 </project>
