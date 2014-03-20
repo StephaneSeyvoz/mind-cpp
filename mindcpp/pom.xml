@@ -29,7 +29,11 @@
                 <groupId>${project.groupId}</groupId>
   		<artifactId>idl-backend-cpp</artifactId>
   	</dependency>
-
+  	<dependency>
+  		<groupId>${project.groupId}</groupId>
+  		<artifactId>idl-frontend-cpp</artifactId>
+  		<version>${project.version}</version>
+  	</dependency>
   </dependencies> 
   
   <build>

@@ -58,6 +58,7 @@
 		<module>fractal-runtime-cpp</module>
 		<module>idl-backend-cpp</module>
 		<module>mindcpp</module>
+		<module>idl-frontend-cpp</module>
 	</modules>
 
 </project>
