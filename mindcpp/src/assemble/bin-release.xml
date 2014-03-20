@@ -13,6 +13,7 @@
             <includes>
                 <include>${project.groupId}:adl-backend-cpp</include>
                 <include>${project.groupId}:idl-backend-cpp</include>
+                <include>${project.groupId}:idl-frontend-cpp</include>
             </includes>
             <fileMode>0644</fileMode>
         </dependencySet>
