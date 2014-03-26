@@ -1,0 +1,4 @@
+interface api.uniop {
+    void increment(uint32_t input);
+    void twice(uint32_t input);
+}

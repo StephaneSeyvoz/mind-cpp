@@ -1,0 +1,14 @@
+import generator.*;
+import incrementer.*;
+import sink.*;
+
+composite autoincrementer {    
+    contains mindcpp.boot.BootStrap	as bootStrap;
+     binds bootStrap.entryPoint to generator.entryPoint;
+    
+    contains generator                  as generator;
+     binds generator.outputItf             to incrementer.inputItf; //asynchronous fifo=1
+    contains incrementer                as incrementer;
+     binds incrementer.outputItf           to sink.inputItf;
+    contains sink                       as sink;
+}
