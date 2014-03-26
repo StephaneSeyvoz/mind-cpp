@@ -3,7 +3,12 @@
   
   <groupId>org.ow2.mind</groupId>
   <version>0.1.0-SNAPSHOT</version>
-  
+       <parent>
+        <groupId>org.ow2.mind</groupId>
+       <artifactId>mind-cpp</artifactId>
+        <version>0.1.0-SNAPSHOT</version>
+       </parent>
+ 
   <name>mindcpp</name>
   <description>C++ integration module</description>
   
