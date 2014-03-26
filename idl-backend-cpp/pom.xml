@@ -6,9 +6,6 @@
         <version>0.1.0-SNAPSHOT</version>
        </parent>
  
-  <groupId>org.ow2.mind</groupId>
-  <version>0.1.0-SNAPSHOT</version>
-  
   <name>IDL C++ backend module</name>
   <description>Module for the generation of C++ header files from IDL definitions.</description>
   
