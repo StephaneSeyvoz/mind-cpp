@@ -45,5 +45,5 @@ primitive mindcpp.boot.BootStrap {
 
   requires Main as entryPoint;
   //requires optional LifeCycleController as appLCC;
-  source bootstrap.cpp;
+  source BootStrap.cpp;
 }
