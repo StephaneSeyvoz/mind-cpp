@@ -21,7 +21,7 @@
 
  -->
 <plugin
-    id="org.ow2.mind.idl-backend-cpp"
+    id="org.ow2.mind.idl-frontend-cpp"
     name="The IDL Backend of the MIND Compiler">
 
     <extension
