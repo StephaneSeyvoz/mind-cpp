@@ -3,7 +3,7 @@
        <parent>
         <groupId>org.ow2.mind</groupId>
        <artifactId>mind-cpp</artifactId>
-        <version>0.1.0-SNAPSHOT</version>
+        <version>0.1.0-NMF-Style-SNAPSHOT</version>
        </parent>
  
   <name>IDL C++ backend module</name>
