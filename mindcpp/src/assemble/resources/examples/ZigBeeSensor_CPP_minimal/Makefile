@@ -1,6 +1,8 @@
 #CPPFLAGS += -DNDEBUG
 CFLAGS += -std=gnu99
 
+CC=g++
+
 SRC_DIR = src
 INC_DIR = include
 OBJ_DIR = obj
@@ -9,14 +11,14 @@ BIN_DIR = bin
 
 VERSION=0.1
 
-CALENDARMANAGER_NAME = ZigBeeSensor
-CALENDARMANAGER_SRCS = BootStrap.cpp af.cpp FlashMng.cpp led.cpp mainComponent.cpp nwk.cpp sensor.cpp sys.cpp temperatureCluster.cpp temperatureSensor.cpp zigBeeStack.cpp
-CALENDARMANAGER_CPPFLAGS =
-CALENDARMANAGER_CFLAGS =
-CALENDARMANAGER_LDFLAGS = -L./libs
-CALENDARMANAGER_LIBS = -lFlashMngExt
+ZIGBEESENSOR_NAME = ZIGBEESENSOR
+ZIGBEESENSOR_SRCS = af.cpp  BootStrap.cpp  FlashMng.cpp  led.cpp  mainComponent.cpp  nwk.cpp  sensor.cpp  sys.cpp  temperatureCluster.cpp  temperatureCluster.dat  temperatureSensor.cpp  zigBeeStack.cpp
+ZIGBEESENSOR_CPPFLAGS =  -Ilibs
+ZIGBEESENSOR_CFLAGS = -Ilibs
+ZIGBEESENSOR_LDFLAGS = 
+ZIGBEESENSOR_LIBS = ./libs/libFlashMngExt.a
 
-BINARIES = ZigBeeSensor
+BINARIES = ZIGBEESENSOR
 ARCHIVES =
 LIBRARIES =
 
