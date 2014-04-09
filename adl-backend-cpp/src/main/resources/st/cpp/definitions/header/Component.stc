@@ -109,7 +109,7 @@ InterfaceMethodsVirtualPrototypes(itf) ::= <<
 
 methodsVirtualPrototypes(itfDef) ::= <<
 <if (itfDef.methods)>
-<itfDef.methods:{<(idl2c.methodDef)(method=it, methodName=it.name, withThisPtr="false")>;}; separator="\n">
+<itfDef.methods:{virtual <(idl2c.methodDef)(method=it, methodName=it.name, withThisPtr="false")> = 0;}; separator="\n">
 <endif>
 >>
 
