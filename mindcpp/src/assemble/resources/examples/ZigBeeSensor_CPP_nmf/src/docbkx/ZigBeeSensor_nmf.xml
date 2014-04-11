@@ -67,8 +67,8 @@
 
     <section>
       <para>This overview shows the global example architecture. An UML
-      component diagram (internal block diagram) has naturally be used in order
-      to have a "component" representation.</para>
+      component diagram (internal block diagram) has naturally be used in
+      order to have a "component" representation.</para>
 
       <para>Primitive and composite components are represented by red blocks.
       Provides interfaces are represented by lollipops connectors. Required
@@ -78,9 +78,9 @@
       can be an implementation language like "ANSI C", "C++" , a protocol like
       "DPWS", "modbus" or a physical link like RS485, USB.</para>
 
-      <para>The anonymous component is an in-lined component in the zigBeeStack
-      composite. This anonymous component aims to implement the zigBeeStack
-      composite interface.</para>
+      <para>The anonymous component is an in-lined component in the
+      zigBeeStack composite. This anonymous component aims to implement the
+      zigBeeStack composite interface.</para>
 
       <para>Connections between the composite "external interfaces" and
       "internal interfaces" are performed by the delegation connection.</para>
@@ -135,20 +135,22 @@
         <classname>C++ Model</classname>
       </title>
 
-      <para>The MIND C++ model generates code following the MIND C++ model. This
-      model allows the user to "code" components has hpp file (for the
+      <para>The MIND C++ model generates code following the MIND C++ model.
+      This model allows the user to "code" components has hpp file (for the
       definition) and c++ file (for the implementation).</para>
 
       <para>The user defines interfaces in the "itf" files</para>
-	  <para>The user defines provides and required interfaces and connections between component in adl files.</para>
+
+      <para>The user defines provides and required interfaces and connections
+      between component in adl files.</para>
 
       <para>The mindc++ compiler will generated all necessary c++ classes in
       order to support the following MIND features (cf. 2).</para>
 
       <para/>
 
-      <para>In order to illustrate the MIND C++ model the c++ representation of
-      the "temperatureCluster" component has been selected.</para>
+      <para>In order to illustrate the MIND C++ model the c++ representation
+      of the "temperatureCluster" component has been selected.</para>
 
       <para>This diagram shows all classes (generated and user class) related
       to the "temperatureCluster" component.</para>
@@ -209,15 +211,17 @@
                 <entry>Type</entry>
 
                 <entry>The <code>temperatureSensor</code> primitive extend the
-                <code>sensor</code> type.</entry>
+                <code>sensor</code> type. Currently the model does not
+                maintains the hierarchy; the parent component is merged with
+                the child component.</entry>
               </row>
 
               <row>
                 <entry>Composition</entry>
 
                 <entry>The <code>zigBeeStack</code> component is a composite.
-                This composite requires a led driver and a Flash driver and provides the ZigBee
-                stack API.</entry>
+                This composite requires a led driver and a Flash driver and
+                provides the ZigBee stack API.</entry>
               </row>
 
               <row>
@@ -238,21 +242,26 @@
         <classname>Generated code with MIND C++ model</classname>
       </title>
 
-	  <para>mindc++ generates some classes following the MIND C++ Model.</para>
-	  
-	  <para>Some source files (hpp and cpp in the target folder) are created and the C++ compiler is invoked 
-	  in order to compile C++ sources.</para>
-	  
+      <para>mindc++ generates some classes following the MIND C++
+      Model.</para>
+
+      <para>Some source files (hpp and cpp in the target folder) are created
+      and the C++ compiler is invoked in order to compile C++ sources.</para>
+
       <para>The corresponding class diagram is the following.</para>
 
-      <note><para>This diagram does not show association between classes (bindings
-      between components).</para></note>
+      <note>
+        <para>This diagram does not show association between classes (bindings
+        between components).</para>
+      </note>
 
       <note>
-		<para>In grey the runtime classes.</para>
-		<para>In yellow the generated classes.</para>
-		<para>In green the user classes.</para>
-	  </note>
+        <para>In grey the runtime classes.</para>
+
+        <para>In yellow the generated classes.</para>
+
+        <para>In green the user classes.</para>
+      </note>
 
       <section id="examplecpp01-06">
         <formalpara>
@@ -315,11 +324,13 @@
       <para>The simplified model does not support some features as for example
       to disambiguate method with the same name from two different
       interfaces.</para>
-	  <para>This representation aims to be closer to the "intuitive" C++ representation.</para>
-	  
+
+      <para>This representation aims to be closer to the "intuitive" C++
+      representation.</para>
+
       <para>The corresponding class diagram with a simplified C++ model is the
       following.</para>
-	  
+
       <section id="examplecpp01-08">
         <formalpara>
           <example>
@@ -346,17 +357,20 @@
 
     <para>The root folder contains a Makefile. Please invoke "make" in order
     to build the example.</para>
-	
-    <para>The build result is available in the <code>target/Default/binary</code> folder.</para>
-	<para>This build folder contains generated files, object files and the final binary</para>
+
+    <para>The build result is available in the
+    <code>target/Default/binary</code> folder.</para>
+
+    <para>This build folder contains generated files, object files and the
+    final binary</para>
 
     <note>
       <para>The Makefile invoke the mindc compiler with the following options:
-		<code>--cpp --flatten</code>
-	  </para>
+      <code>--cpp --flatten</code></para>
 
       <para>
-        <code>These options are defined in the "Default.properties"  file.</code>
+        <code>These options are defined in the "Default.properties"
+        file.</code>
       </para>
     </note>
   </chapter>
