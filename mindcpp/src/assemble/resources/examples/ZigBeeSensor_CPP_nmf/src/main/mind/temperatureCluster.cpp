@@ -1,4 +1,8 @@
 #include <stdio.h>
+
+/**
+ * This header file is written by the user.
+ */
 #include "temperatureCluster.hpp"
 
 // -----------------------------------------------------------------------------

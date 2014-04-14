@@ -8,6 +8,10 @@
 #ifndef TEMPERATURECLUSTER_HPP_
 #define TEMPERATURECLUSTER_HPP_
 
+/** 
+ * This header file is generated.
+ * Please use this format : <component name>.adl.hpp
+ */ 
 #include "temperatureCluster.adl.hpp"
 
 class temperatureCluster: public temperatureClusterDefinition {
@@ -19,7 +23,15 @@ protected:
         int data_type;
       } PRIVATE;
 public:
-        virtual void Init(void );
+	/**
+	 * Private methods
+	 */
+
+
+	/**
+	 * Interface methods
+	 */
+	virtual void Init(void );
 
 	virtual unsigned char getDirection();
 
@@ -31,9 +43,5 @@ public:
 
 	virtual unsigned char update();
 };
-
-
-
-
 
 #endif /* TEMPERATURECLUSTER_HPP_ */

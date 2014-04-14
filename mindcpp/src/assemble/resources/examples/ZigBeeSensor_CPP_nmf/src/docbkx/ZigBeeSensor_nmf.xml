@@ -237,6 +237,45 @@
       </para>
     </section>
 
+    <section id="UserCode">
+      <title>
+        <classname>User code</classname>
+      </title>
+
+      <para>The MIND C++ model allow the user to code his own CPP and HPP
+      files.</para>
+
+      <para>The CPP file contains interface methods implementations and the
+      HPP file contains the component definition (with private data and
+      private methods).</para>
+
+	  <para>The both next examples illustrate the CPP part of the "temperatureCluster" component.</para>
+	  
+	  <formalpara>
+        <example>
+          <title>HPP file example</title>
+
+            <programlisting>
+				<xi:include href="../main/mind/temperatureCluster.hpp"
+              parse="text" xmlns:xi="http://www.w3.org/2001/XInclude"/>
+			</programlisting>
+        </example>
+      </formalpara>
+	  
+  	  <formalpara>
+        <example>
+          <title>CPP file example</title>
+
+            <programlisting>
+				<xi:include href="../main/mind/temperatureCluster.cpp"
+              parse="text" xmlns:xi="http://www.w3.org/2001/XInclude"/>
+			</programlisting>
+        </example>
+      </formalpara>
+
+	  
+    </section>
+
     <section>
       <title>
         <classname>Generated code with MIND C++ model</classname>
