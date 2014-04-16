@@ -1,0 +1,24 @@
+/**
+ * Generated file.
+ */
+
+composite zigBeeStack_flat {
+	// 3 Interface(s)
+	provides zigBeeItf as zigbeeitf;
+	requires ledItf as leditf;
+	requires FlashMngItf as flashmngitf;
+
+	// 4 Subcomponent(s)
+	contains af as afInstance;
+	contains nwk as nwkInstance;
+	contains sys as sysInstance;
+	contains zigBeeStack$0 as zigbeestackAPI;
+
+	// 6 Binding(s)
+	binds zigbeestackAPI.afitf to afInstance.afitf;
+	binds zigbeestackAPI.sysitf to sysInstance.sysitf;
+	binds this.zigbeeitf to zigbeestackAPI.zigbeeitf;
+	binds nwkInstance.leditf to this.leditf;
+	binds nwkInstance.flashmngitf to this.flashmngitf;
+	binds afInstance.nwkitf to nwkInstance.nwkitf;
+}

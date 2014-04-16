@@ -52,7 +52,6 @@
         </pluginManagement>
     </build>
 
-
 	<modules>
 		<module>adl-backend-cpp</module>
 		<module>fractal-runtime-cpp</module>
