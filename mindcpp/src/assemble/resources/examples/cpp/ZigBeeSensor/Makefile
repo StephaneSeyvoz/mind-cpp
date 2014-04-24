@@ -69,10 +69,10 @@ ifdef assemblerCommand
 	endif
 endif
 
-asFlagArg=
-ifdef asFlag
-	ifneq ($(asFlag), "")
-		asFlagArg=--as-flags="$(asFlag)"
+asFlagsArg=
+ifdef asFlags
+	ifneq ($(asFlags), "")
+		asFlagsArg=--as-flags="$(asFlags)"
 	endif
 endif
 
@@ -100,14 +100,14 @@ endif
 extraOptionsArg=
 ifdef extraOptions
 	ifneq ($(extraOptions), "")
-		extraOptionsArg="$(extraOptions)"
+		extraOptionsArg=$(extraOptions)
 	endif
 endif
 
 testExtraOptionsArg=
 ifdef testExtraOptions
 	ifneq ($(testExtraOptions), "")
-		testExtraOptionsArg="$(testExtraOptions)"
+		testExtraOptionsArg=$(testExtraOptions)
 	endif
 endif
 
@@ -126,7 +126,7 @@ space= $(empty) $(empty)
 # will not be documented and this can lead to broken links. Within MindEd, MIND_ROOT should always be
 # automatically defined. However, for common builds from the terminal, you should define it or at least
 # do a dry run of "mindc" once for MIND_ROOT to be defined for the terminal session. 
-RUNTIME_PATH=$(subst \,/, $(MIND_ROOT))/runtime
+RUNTIME_PATH=$(subst \,/,$(MIND_ROOT))/runtime
 
 binOutputDir=$(confOutputDirVar)/binaries
 docOutputDir=$(confOutputDirVar)/doc
@@ -136,36 +136,36 @@ testDocOutputDir=$(confOutputDirVar)/test-doc
 
 # The real build command.
 
-MIND_SRC = C:\Users\SESA188919\Documents\MIND\mindc-release\mind4se-compiler-2.1-SNAPSHOT-20140204-beta\runtime;src\main\mind;src\test\mind
+all: compile graph doc test  
 
-MIND_TARGETS = zigBeeSensor:zigBeeSensor
+clean_all: clean clean_graph clean_doc clean_test
 
-all: build
+compile: build
 ifdef targetComponent
 	if test ! -x $(MINDC); \
-        then @echo ' Not found mindc ! Set MIND_ROOT variable or go to 'Mindc location' eclipse preference page'; \
-    	else $(MINDC) $(sourcePathArg) $(includePathArg) $(compilerCommandArg) $(linkerCommandArg) $(assemblerCommandArg) $(asFlagArg) $(cppFlagsArg) $(cFlagsArg) $(ldFlagsArg) $(extraOptionsArg) -o=$(binOutputDir) $(targetComponent):$(binaryName) ;\
+        then echo ' Not found mindc ! Set MIND_ROOT variable or go to 'Mindc location' eclipse preference page'; \
+    	else $(MINDC) $(sourcePathArg) $(includePathArg) $(compilerCommandArg) $(linkerCommandArg) $(assemblerCommandArg) $(asFlagsArg) $(cppFlagsArg) $(cFlagsArg) $(ldFlagsArg) $(extraOptionsArg) -o=$(binOutputDir) $(targetComponent):$(binaryName) ;\
     fi
 else
-	@echo "No application defined - MindEd users: Please configure your project target with the 'Mind Path' -> (right click) 'New application' menu."
+	echo "No application defined - MindEd users: Please configure your project target with the 'Mind Path' -> (right click) 'New application' menu."
 endif
 
 graph: build_graph
 ifdef targetComponent
 	if test ! -x $(MINDC); \
-        then @echo ' Not found mindc ! Set MIND_ROOT variable or go to 'Mindc location' eclipse preference page'; \
-    	else $(MINDC) --check-adl $(sourcePathArg) $(includePathArg) $(compilerCommandArg) $(linkerCommandArg) $(assemblerCommandArg) $(asFlagArg) $(cppFlagsArg) $(cFlagsArg) $(ldFlagsArg) $(extraOptionsArg) -o=$(graphOutputDir) 'dot.DumpComponentDot<'$(targetComponent)'>' ;\
+        then echo ' Not found mindc ! Set MIND_ROOT variable or go to 'Mindc location' eclipse preference page'; \
+    	else $(MINDC) --check-adl $(sourcePathArg) $(includePathArg) -o=$(graphOutputDir) 'dot.DumpComponentDot<'$(targetComponent)'>' ;\
     fi
 else
-	@echo "No application defined - MindEd users: Please configure your project target with the 'Mind Path' -> (right click) 'New application' menu."
+	echo "No application defined - MindEd users: Please configure your project target with the 'Mind Path' -> (right click) 'New application' menu."
 endif
 
 doc: build_doc
-	$(MINDOC) $(subst $(PATH_SEPARATOR),$(space),$(subst :,$(PATH_SEPARATOR),$(sourcePath))) $(RUNTIME_PATH) -d $(docOutputDir)
+	$(MINDOC) $(sourcePathArg) -S=$(RUNTIME_PATH) -o=$(docOutputDir)
 
 # here we reuse the same flags as the common build ones
 test: build_test
-	$(MINDUNIT) $(sourcePathArg) $(includePathArg) $(compilerCommandArg) $(linkerCommandArg) $(assemblerCommandArg) $(asFlagArg) $(cppFlagsArg) $(cFlagsArg) $(ldFlagsArg) $(extraOptionsArg) $(testExtraOptionsArg) -o=$(testBinOutputDir) $(testSourcePathArg)
+	$(MINDUNIT) $(sourcePathArg) $(includePathArg) $(compilerCommandArg) $(linkerCommandArg) $(assemblerCommandArg) $(asFlagsArg) $(cppFlagsArg) $(cFlagsArg) $(ldFlagsArg) $(extraOptionsArg) $(testExtraOptionsArg) -o=$(testBinOutputDir) $(testSourcePathArg)
 
 # Output folder handling.
 

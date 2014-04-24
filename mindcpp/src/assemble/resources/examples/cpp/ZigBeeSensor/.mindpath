@@ -1,3 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <mindpath>
+	<mindpathentry kind="SOURCE" path="/ZigBeeSensor/libs"/>
+	<mindpathentry kind="SOURCE" path="/ZigBeeSensor/src/main/mind"/>
+	<mindpathentry kind="APPLI" path="zigBeeSensor:zigBeeSensor"/>
 </mindpath>
