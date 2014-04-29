@@ -7,7 +7,7 @@
 
 #include <stdio.h>
 
-#include "led.hpp"
+#include "led.adl.hpp"
 
 void led::led01On() {
 	printf("Led 01 ON\n");

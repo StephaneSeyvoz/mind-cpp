@@ -8,20 +8,12 @@
 #ifndef TEMPERATURECLUSTER_HPP_
 #define TEMPERATURECLUSTER_HPP_
 
-/** 
- * This header file is generated.
- * Please use this format : <component name>.adl.hpp
- */ 
-#include "temperatureCluster.adl.hpp"
-
 class temperatureCluster: public temperatureClusterDefinition {
 protected:
-      struct {
-        int attribute_measured_value;
-        int attribute_max_value;
-        int attribute_min_value;
-        int data_type;
-      } PRIVATE;
+	int m_attribute_measured_value;
+	int m_attribute_max_value;
+	int m_attribute_min_value;
+	int m_data_type;
 public:
 	/**
 	 * Private methods

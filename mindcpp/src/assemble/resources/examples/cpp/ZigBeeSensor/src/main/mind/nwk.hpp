@@ -8,8 +8,6 @@
 #ifndef NWK_HPP_
 #define NWK_HPP_
 
-#include "nwk.adl.hpp"
-
 class nwk: public nwkDefinition {
 protected:
 public:

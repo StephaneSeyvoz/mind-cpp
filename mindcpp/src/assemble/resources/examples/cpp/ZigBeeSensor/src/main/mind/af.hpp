@@ -8,8 +8,6 @@
 #ifndef AF_HPP_
 #define AF_HPP_
 
-#include "af.adl.hpp"
-
 class af: public afDefinition {
 protected:
 public:

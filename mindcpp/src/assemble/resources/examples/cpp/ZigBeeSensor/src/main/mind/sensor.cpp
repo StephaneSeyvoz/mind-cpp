@@ -6,7 +6,7 @@
  */
 
 
-#include "sensor.hpp"
+#include "sensor.adl.hpp"
 
 
 

@@ -48,6 +48,7 @@
 				<exclude>**/.settings/**</exclude>
 				<exclude>**/.localmindrepo/**</exclude>
 				<exclude>**/GeneratedCode/**</exclude>
+				<exclude>**/Pure_cpp_implementation/**</exclude>
           	</excludes>
         </fileSet>
     </fileSets>

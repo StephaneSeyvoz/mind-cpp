@@ -8,8 +8,6 @@
 #ifndef SYS_HPP_
 #define SYS_HPP_
 
-#include "sys.adl.hpp"
-
 class sys: public sysDefinition {
 private:
 protected:

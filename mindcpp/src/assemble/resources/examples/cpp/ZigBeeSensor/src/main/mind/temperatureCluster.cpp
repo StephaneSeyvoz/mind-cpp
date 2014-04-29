@@ -3,7 +3,7 @@
 /**
  * This header file is written by the user.
  */
-#include "temperatureCluster.hpp"
+#include "temperatureCluster.adl.hpp"
 
 // -----------------------------------------------------------------------------
 // Implementation of the primitive temperatureCluster.
@@ -14,10 +14,10 @@
  * @brief Initialize the cluster
  */
 void temperatureCluster::Init() {
-	PRIVATE.attribute_measured_value = 0x00;
-	PRIVATE.attribute_max_value = 0x01;
-	PRIVATE.attribute_min_value = 0x02;
-	PRIVATE.data_type = 0x21;
+	m_attribute_measured_value = 0x00;
+	m_attribute_max_value = 0x01;
+	m_attribute_min_value = 0x02;
+	m_data_type = 0x21;
 }
 
 /*
@@ -52,9 +52,9 @@ unsigned char temperatureCluster::serialize(unsigned char* a_iSize, unsigned cha
 	temperatureitf.GetCurrentTemperature(&data);
 	sensoritf.switchOff();
 
-	a_pBuffer[0] = PRIVATE.attribute_measured_value >> 8;
-	a_pBuffer[1] = PRIVATE.attribute_measured_value;
-	a_pBuffer[2] = PRIVATE.data_type;
+	a_pBuffer[0] = m_attribute_measured_value >> 8;
+	a_pBuffer[1] = m_attribute_measured_value;
+	a_pBuffer[2] = m_data_type;
 	a_pBuffer[3] = data;
 	a_pBuffer[4] = data >> 8;
 

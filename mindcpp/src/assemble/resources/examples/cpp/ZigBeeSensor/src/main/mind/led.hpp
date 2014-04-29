@@ -8,8 +8,6 @@
 #ifndef LED_HPP_
 #define LED_HPP_
 
-#include "led.adl.hpp"
-
 class led: public ledDefinition {
 protected:
 public:

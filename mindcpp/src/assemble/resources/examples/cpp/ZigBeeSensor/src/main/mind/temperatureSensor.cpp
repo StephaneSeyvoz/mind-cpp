@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "temperatureSensor.hpp"
+#include "temperatureSensor.adl.hpp"
 
 // -----------------------------------------------------------------------------
 // Implementation of the primitive sensor.

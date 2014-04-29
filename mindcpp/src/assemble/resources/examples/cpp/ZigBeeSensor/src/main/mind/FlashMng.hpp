@@ -8,9 +8,6 @@
 #ifndef FLASHMNG_HPP_
 #define FLASHMNG_HPP_
 
-
-#include "FlashMng.adl.hpp"
-
 class FlashMng: public FlashMngDefinition {
 protected:
 public:

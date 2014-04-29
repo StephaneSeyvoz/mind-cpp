@@ -8,8 +8,6 @@
 #ifndef ZIGBEESTACK_HPP_
 #define ZIGBEESTACK_HPP_
 
-#include "zigBeeStack.adl.hpp"
-
 class zigBeeStack: public zigBeeStackDefinition {
 protected:
 public:

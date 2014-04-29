@@ -8,8 +8,6 @@
 #ifndef MAINCOMPONENT_HPP_
 #define MAINCOMPONENT_HPP_
 
-#include "mainComponent.adl.hpp"
-
 class mainComponent: public mainComponentDefinition {
 protected:
 public:

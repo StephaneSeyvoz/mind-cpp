@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "zigBeeStack.hpp"
+#include "zigBeeStack.adl.hpp"
 
 // -----------------------------------------------------------------------------
 // Implementation of the primitive ZigBeeStack.

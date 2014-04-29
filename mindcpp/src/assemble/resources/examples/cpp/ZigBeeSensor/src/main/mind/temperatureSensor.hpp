@@ -8,8 +8,6 @@
 #ifndef TEMPERATURESENSOR_HPP_
 #define TEMPERATURESENSOR_HPP_
 
-#include "temperatureSensor.adl.hpp"
-
 class temperatureSensor: public temperatureSensorDefinition {
 private:
 protected:

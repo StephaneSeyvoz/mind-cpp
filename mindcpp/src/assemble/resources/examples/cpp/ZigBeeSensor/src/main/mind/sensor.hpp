@@ -8,8 +8,6 @@
 #ifndef SENSOR_HPP_
 #define SENSOR_HPP_
 
-#include "sensor.adl.hpp"
-
 class sensor: public sensorDefinition {
 protected:
 public:

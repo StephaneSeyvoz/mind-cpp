@@ -8,7 +8,7 @@
 
 #include <stdio.h>
 
-#include "nwk.hpp"
+#include "nwk.adl.hpp"
 
 
 void nwk::SendRequest(unsigned char* a_data) {

@@ -1,4 +1,4 @@
-#include "mainComponent.hpp"
+#include "mainComponent.adl.hpp"
 
 // -----------------------------------------------------------------------------
 // Implementation of the primitive main.

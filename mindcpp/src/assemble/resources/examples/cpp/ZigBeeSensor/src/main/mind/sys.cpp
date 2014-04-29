@@ -6,7 +6,7 @@
  */
 
 #include <stdio.h>
-#include "sys.hpp"
+#include "sys.adl.hpp"
 
 void sys::Init(void) {
 	printf("Initialise ZigBee stack\n");

@@ -1,0 +1,7 @@
+primitive zigbeestackComponentAPI {
+ 	provides zigBeeItf as zigbeeitf;
+	requires afItf as afitf;
+	requires sysItf as sysitf;
+
+	source zigbeestackComponentAPI.cpp;
+}

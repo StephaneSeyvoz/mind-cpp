@@ -1,4 +1,4 @@
-zigBeeSensor C++ example
+Autoincrementer C++ example
 =============================
 
 An example of mincpp usage
