@@ -5,7 +5,6 @@
 			<storageModule buildSystemId="org.eclipse.cdt.managedbuilder.core.configurationDataProvider" id="org.ow2.mindEd.ide.core.build.68449699" moduleId="org.eclipse.cdt.core.settings" name="Default">
 				<externalSettings/>
 				<extensions>
-					<extension id="org.eclipse.cdt.core.PE" point="org.eclipse.cdt.core.BinaryParser"/>
 					<extension id="org.eclipse.cdt.core.VCErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
 					<extension id="org.eclipse.cdt.core.GmakeErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
 					<extension id="org.eclipse.cdt.core.CWDLocator" point="org.eclipse.cdt.core.ErrorParser"/>
@@ -13,6 +12,7 @@
 					<extension id="org.ow2.mindEd.ide.MindcErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
 					<extension id="org.eclipse.cdt.core.GASErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
 					<extension id="org.eclipse.cdt.core.GLDErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+					<extension id="org.eclipse.cdt.core.PE" point="org.eclipse.cdt.core.BinaryParser"/>
 				</extensions>
 			</storageModule>
 			<storageModule moduleId="cdtBuildSystem" version="4.0.0">
@@ -20,7 +20,7 @@
 					<folderInfo id="org.ow2.mindEd.ide.core.build.68449699." name="/" resourcePath="">
 						<toolChain id="cdt.managedbuild.toolchain.gnu.mingw.base.1721355165" name="MinGW GCC" superClass="cdt.managedbuild.toolchain.gnu.mingw.base">
 							<targetPlatform archList="all" binaryParser="org.eclipse.cdt.core.PE" id="cdt.managedbuild.target.gnu.platform.mingw.base.1640155805" name="Debug Platform" osList="win32" superClass="cdt.managedbuild.target.gnu.platform.mingw.base"/>
-							<builder cleanBuildTarget="CONFIGURATION={ConfigName} clean" id="cdt.managedbuild.builder.gnu.cross.1192956371" incrementalBuildTarget="CONFIGURATION={ConfigName} all" keepEnvironmentInBuildfile="false" managedBuildOn="false" name="Gnu Make Builder"/>
+							<builder buildPath="${workspace_loc:/ZigBeeSensor}" cleanBuildTarget="CONFIGURATION=${ConfigName} clean" id="cdt.managedbuild.builder.gnu.cross.1245234533" incrementalBuildTarget="CONFIGURATION=${ConfigName} all" keepEnvironmentInBuildfile="false" managedBuildOn="false" name="Gnu Make Builder" superClass="cdt.managedbuild.builder.gnu.cross"/>
 							<tool id="cdt.managedbuild.tool.gnu.assembler.mingw.base.51614865" name="GCC Assembler" superClass="cdt.managedbuild.tool.gnu.assembler.mingw.base">
 								<option id="gnu.both.asm.option.include.paths.1002035757" name="Include paths (-I)" superClass="gnu.both.asm.option.include.paths"/>
 								<inputType id="cdt.managedbuild.tool.gnu.assembler.input.458482206" superClass="cdt.managedbuild.tool.gnu.assembler.input"/>
@@ -74,18 +74,18 @@
 			<storageModule moduleId="org.eclipse.cdt.core.externalSettings">
 				<externalSettings containerId="mind.cpl.settings" factoryId="org.eclipse.cdt.core.extension.container.factory">
 					<externalSetting>
-						<entry flags="" kind="macro" name="METH(interface,method ...)" value="method##interface"/>
-						<entry flags="" kind="macro" name="IS_BOUND(interface)" value="(interface!=0)"/>
-						<entry flags="" kind="macro" name="GET_COLLECTION_SIZE(interface)" value="0"/>
-						<entry flags="" kind="macro" name="CALL(interface,method ...)" value="method##interface"/>
-						<entry flags="" kind="macro" name="PRIVATE" value="__private__"/>
-						<entry flags="" kind="macro" name="ATTR(attribute)" value="attribute"/>
-						<entry flags="" kind="macro" name="CONSTRUCTOR()" value="void _constructor_()"/>
-						<entry flags="" kind="macro" name="DESTRUCTOR()" value="void _destructor_()"/>
-						<entry flags="" kind="macro" name="GET_MY_INTERFACE(interface)" value="interface"/>
-						<entry flags="" kind="macro" name="IS_BOUND_PTR(intertface_pointer)" value="(intertface_pointer!=0)"/>
-						<entry flags="" kind="macro" name="CALL_PTR(interface,method ...)" value="method##interface"/>
-						<entry flags="" kind="macro" name="METH_PTR(methodPointer)" value="methodPointer"/>
+						<entry flags="NONE" kind="macro" name="METH(interface,method ...)" value="method##interface"/>
+						<entry flags="NONE" kind="macro" name="IS_BOUND(interface)" value="(interface!=0)"/>
+						<entry flags="NONE" kind="macro" name="GET_COLLECTION_SIZE(interface)" value="0"/>
+						<entry flags="NONE" kind="macro" name="CALL(interface,method ...)" value="method##interface"/>
+						<entry flags="NONE" kind="macro" name="PRIVATE" value="__private__"/>
+						<entry flags="NONE" kind="macro" name="ATTR(attribute)" value="attribute"/>
+						<entry flags="NONE" kind="macro" name="CONSTRUCTOR()" value="void _constructor_()"/>
+						<entry flags="NONE" kind="macro" name="DESTRUCTOR()" value="void _destructor_()"/>
+						<entry flags="NONE" kind="macro" name="GET_MY_INTERFACE(interface)" value="interface"/>
+						<entry flags="NONE" kind="macro" name="IS_BOUND_PTR(intertface_pointer)" value="(intertface_pointer!=0)"/>
+						<entry flags="NONE" kind="macro" name="CALL_PTR(interface,method ...)" value="method##interface"/>
+						<entry flags="NONE" kind="macro" name="METH_PTR(methodPointer)" value="methodPointer"/>
 					</externalSetting>
 				</externalSettings>
 			</storageModule>
@@ -165,4 +165,5 @@
 			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="org.eclipse.cdt.managedbuilder.core.GCCManagedMakePerProjectProfileC"/>
 		</scannerConfigBuildInfo>
 	</storageModule>
+	<storageModule moduleId="org.eclipse.cdt.internal.ui.text.commentOwnerProjectMappings"/>
 </cproject>
