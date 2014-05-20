@@ -4,7 +4,7 @@
        <parent>
         <groupId>org.ow2.mind</groupId>
        <artifactId>mind-cpp</artifactId>
-        <version>0.1.0-NMF-Style-SNAPSHOT</version>
+        <version>0.1.1-SNAPSHOT</version>
        </parent>
  
   <name>mindcpp</name>
