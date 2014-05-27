@@ -91,7 +91,7 @@
 		</cconfiguration>
 	</storageModule>
 	<storageModule moduleId="cdtBuildSystem" version="4.0.0">
-		<project id="Autoincrementer-NMF-style.cdt.managedbuild.target.gnu.mingw.exe.1714090907" name="Executable" projectType="cdt.managedbuild.target.gnu.mingw.exe"/>
+		<project id="Autoincrementer.cdt.managedbuild.target.gnu.mingw.exe.1714090907" name="Executable" projectType="cdt.managedbuild.target.gnu.mingw.exe"/>
 	</storageModule>
 	<storageModule moduleId="org.eclipse.cdt.core.LanguageSettingsProviders"/>
 	<storageModule moduleId="refreshScope" versionNumber="2">
