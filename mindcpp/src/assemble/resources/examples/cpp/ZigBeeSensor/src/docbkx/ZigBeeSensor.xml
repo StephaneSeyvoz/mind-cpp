@@ -58,6 +58,15 @@
 
             <entry>Add import project in Eclipse section</entry>
           </row>
+           <row>
+            <entry>0.4</entry>
+
+            <entry>27/05/2014</entry>
+
+            <entry>Yves Teissier</entry>
+
+            <entry>Remove anonymous definition in the composite ZigBeeStack</entry>
+          </row>
         </tbody>
       </tgroup>
     </table>
@@ -91,21 +100,13 @@
       <para>In our case the port represents always the "C" implementation
       language.</para>
 
-      <para>The anonymous component is an in-lined component in the
-      zigBeeStack composite. This anonymous component aims to implement the
-      zigBeeStack composite interface. This anonymous definition</para>
-
-      <para>has been temporary replaced by a "classic" primitive in the code
-      (not in diagrams) because there's an incompatibility with the
-      documentation generator.</para>
+      <para/>
 
       <para>Connections between the composite "external interfaces" and
       "internal interfaces" are performed by the delegation connection.</para>
 
       <para>
         <note>This overview as been realized by Artisan Studio (Atego).</note>
-
-        <note>The UML stereotype "anonymous" has been created.</note>
       </para>
     </section>
 
@@ -189,13 +190,6 @@
     <note>
       <para>The following procedure is the same for the example
       <code>Autoincrementer</code></para>
-    </note>
-
-    <note>
-      <para>The documentation generation does not support anonymous
-      definition. So the anonymous zigBeeStackAPI component has been temporary
-      replaced by a fully named primitive inside the zigBeeStack
-      component.</para>
     </note>
 
     <section id="import01">
@@ -548,16 +542,6 @@
                 <entry>The <code>zigBeeStack</code> component is a composite.
                 This composite requires a led driver and a Flash driver and
                 provides the ZigBee stack API.</entry>
-              </row>
-
-              <row>
-                <entry>Anonymous</entry>
-
-                <entry>The <code>zigBeeStackAPI</code> component is anonymous.
-                The role of this in-lined component is to compose the ZigBee
-                stack API. Note that the anonymous definition has been
-                temporary replaced by a classic primitive component in the
-                code.</entry>
               </row>
             </tbody>
           </tgroup>

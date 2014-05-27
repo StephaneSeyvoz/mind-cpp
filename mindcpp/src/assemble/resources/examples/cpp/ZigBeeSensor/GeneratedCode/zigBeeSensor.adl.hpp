@@ -14,7 +14,7 @@
 #include "af.adl.hpp"
 #include "nwk.adl.hpp"
 #include "sys.adl.hpp"
-#include "zigBeeStack_anon_0.adl.hpp"
+#include "zigbeestackComponentAPI.adl.hpp"
 /* End including the sub-component descriptions */
 
 /* Start definition of component type */
@@ -30,7 +30,7 @@ public:
   af _mind_zigBeeStackInstance_afInstance;
   nwk _mind_zigBeeStackInstance_nwkInstance;
   sys _mind_zigBeeStackInstance_sysInstance;
-  zigBeeStack_anon_0 _mind_zigBeeStackInstance_zigbeestackAPI;
+  zigbeestackComponentAPI _mind_zigBeeStackInstance_zigbeestackAPI;
 
 public:
   // bindings initialization between sub-components

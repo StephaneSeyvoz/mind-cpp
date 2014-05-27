@@ -1,6 +1,6 @@
-/* Generated file: composite<zigBeeSensor>_zigBeeStack_anon_0_instances.cpp */
+/* Generated file: composite<zigBeeSensor>_zigbeestackComponentAPI_instances.cpp */
 
-#include "zigBeeStack_anon_0.adl.hpp"
+#include "zigbeestackComponentAPI.adl.hpp"
 #include "zigBeeSensor.adl.hpp"
 
 /* Need topLevel for initialization of the singleton reference */
