@@ -1,6 +1,6 @@
-/* Generated file: zigBeeStack_anon_0.adl.hpp */
-#ifndef __COMPONENT_ZIGBEESTACK_ANON_0_ADL_HPP
-#define __COMPONENT_ZIGBEESTACK_ANON_0_ADL_HPP
+/* Generated file: zigbeestackComponentAPI.adl.hpp */
+#ifndef __COMPONENT_ZIGBEESTACKCOMPONENTAPI_ADL_HPP
+#define __COMPONENT_ZIGBEESTACKCOMPONENTAPI_ADL_HPP
 
 #include "mindcommon.hpp"
 
@@ -11,12 +11,12 @@
 /* End including the interface descriptions */
 
 /* Start definition of component type */
-class zigBeeStack_anon_0Definition : public zigBeeItfDescriptor {
+class zigbeestackComponentAPIDefinition : public zigBeeItfDescriptor {
  
 public:
   // constructor and destructor
-  inline zigBeeStack_anon_0Definition(){};
-  inline ~zigBeeStack_anon_0Definition(){};
+  inline zigbeestackComponentAPIDefinition(){};
+  inline ~zigbeestackComponentAPIDefinition(){};
 public:
   // prototypes
   virtual void DataRequest(  unsigned char (* p0) ) = 0;
@@ -28,5 +28,5 @@ public:
 };
 /* End  definition of component type */
 
-#include "zigBeeStack_anon_0.hpp"
-#endif /* __COMPONENT_ZIGBEESTACK_ANON_0_ADL_HPP */
+#include "zigbeestackComponentAPI.hpp"
+#endif /* __COMPONENT_ZIGBEESTACKCOMPONENTAPI_ADL_HPP */

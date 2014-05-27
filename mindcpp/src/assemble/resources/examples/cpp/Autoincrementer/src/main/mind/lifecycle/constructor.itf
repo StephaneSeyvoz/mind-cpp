@@ -1,5 +1,3 @@
-#include <nmf/types.idt>
-
 /*!
  * \brief C/C++ component constructor interface
  *

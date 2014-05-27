@@ -12,7 +12,7 @@ composite zigBeeStack_flat {
 	contains af as afInstance;
 	contains nwk as nwkInstance;
 	contains sys as sysInstance;
-	contains zigBeeStack$0 as zigbeestackAPI;
+	contains zigbeestackComponentAPI as zigbeestackAPI;
 
 	// 6 Binding(s)
 	binds zigbeestackAPI.afitf to afInstance.afitf;

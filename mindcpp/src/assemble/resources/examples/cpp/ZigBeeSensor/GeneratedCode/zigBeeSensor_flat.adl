@@ -15,7 +15,7 @@ composite zigBeeSensor_flat {
 	contains af as zigBeeStackInstance_afInstance;
 	contains nwk as zigBeeStackInstance_nwkInstance;
 	contains sys as zigBeeStackInstance_sysInstance;
-	contains zigBeeStack$0 as zigBeeStackInstance_zigbeestackAPI;
+	contains zigbeestackComponentAPI as zigBeeStackInstance_zigbeestackAPI;
 
 	// 10 Binding(s)
 	binds BootInstance.entryPoint to mainInstance.out;
