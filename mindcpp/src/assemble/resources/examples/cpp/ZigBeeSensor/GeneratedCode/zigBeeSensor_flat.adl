@@ -1,0 +1,31 @@
+/**
+ * Generated file.
+ */
+
+composite zigBeeSensor_flat {
+	// 0 Interface(s)
+
+	// 10 Subcomponent(s)
+	contains mindcpp.boot.BootStrap as BootInstance;
+	contains mainComponent as mainInstance;
+	contains temperatureCluster as temperatureClusterInstance;
+	contains temperatureSensor as temperatureSensorInstance;
+	contains led as ledInstance;
+	contains FlashMng as flashmngInstance;
+	contains af as zigBeeStackInstance_afInstance;
+	contains nwk as zigBeeStackInstance_nwkInstance;
+	contains sys as zigBeeStackInstance_sysInstance;
+	contains zigBeeStack$0 as zigBeeStackInstance_zigbeestackAPI;
+
+	// 10 Binding(s)
+	binds BootInstance.entryPoint to mainInstance.out;
+	binds mainInstance.cluster to temperatureClusterInstance.cluster;
+	binds mainInstance.zigbeeitf to zigBeeStackInstance_zigbeestackAPI.zigbeeitf;
+	binds temperatureClusterInstance.temperatureitf to temperatureSensorInstance.temperatureitf;
+	binds temperatureClusterInstance.sensoritf to temperatureSensorInstance.sensoritf;
+	binds zigBeeStackInstance_nwkInstance.leditf to ledInstance.leditf;
+	binds zigBeeStackInstance_nwkInstance.flashmngitf to flashmngInstance.flashmngitf;
+	binds zigBeeStackInstance_zigbeestackAPI.afitf to zigBeeStackInstance_afInstance.afitf;
+	binds zigBeeStackInstance_zigbeestackAPI.sysitf to zigBeeStackInstance_sysInstance.sysitf;
+	binds zigBeeStackInstance_afInstance.nwkitf to zigBeeStackInstance_nwkInstance.nwkitf;
+}

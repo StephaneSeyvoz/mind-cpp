@@ -1,0 +1,117 @@
+# Flags for compiling and linking
+CPPFLAGS += -I$(INC_DIR)
+CFLAGS += -pipe -Wall
+CXXFLAGS += -pipe -Wall
+LDFLAGS += $(CFLAGS) -L$(LIB_DIR) -Wl,-R/usr/local/lib
+#ARFLAGS +=
+CC_SHARED = -shared -fPIC
+LD_SHARED = $(CC_SHARED) -Wl,-h$(@F)
+
+NAMES := $(ARCHIVES) $(LIBRARIES) $(BINARIES)
+
+$(foreach name,$(ARCHIVES) $(BINARIES),$(eval $(name)_SRCS_C := $(filter %.c,$($(name)_SRCS))))
+$(foreach name,$(LIBRARIES),$(eval $(name)_SRCS_SHARED_C := $(filter %.c,$($(name)_SRCS))))
+$(foreach name,$(ARCHIVES) $(BINARIES),$(eval $(name)_SRCS_CPP := $(filter %.cpp %.cc,$($(name)_SRCS))))
+$(foreach name,$(LIBRARIES),$(eval $(name)_SRCS_SHARED_CPP := $(filter %.cpp %.cc,$($(name)_SRCS))))
+$(foreach name,$(NAMES),$(eval $(name)_OBJS := $(foreach src,$($(name)_SRCS),$(OBJ_DIR)/$(src:$(suffix $(src))=.o))))
+
+TARGETS := $(foreach name,$(ARCHIVES) $(LIBRARIES),$(LIB_DIR)/$($(name)_NAME))
+TARGETS += $(foreach name,$(BINARIES),$(BIN_DIR)/$($(name)_NAME))
+OBJECTS := $(foreach name,$(NAMES),$($(name)_OBJS))
+
+
+.PHONY: all clean
+
+all: $(TARGETS)
+	@echo "*** $@ done ***"
+
+clean:
+	@echo "*** $@ ***"
+	@-$(RM) $(TARGETS) $(OBJECTS)
+	@echo "*** $@ done ***"
+
+package:
+	mkdir 3FX-calendarManager-$(VERSION)
+	cp -rf src 3FX-calendarManager-$(VERSION)
+	cp -rf obj 3FX-calendarManager-$(VERSION)
+	cp -rf bin 3FX-calendarManager-$(VERSION)
+	cp -rf lib 3FX-calendarManager-$(VERSION)
+	cp -rf include 3FX-calendarManager-$(VERSION)
+	cp Makefile 3FX-calendarManager-$(VERSION)
+	cp Makefile.auto 3FX-calendarManager-$(VERSION)
+	tar cjvf 3FX-calendarManager-$(VERSION).tar.bz2 3FX-calendarManager-$(VERSION)
+	cp 3FX-calendarManager-$(VERSION).tar.bz2 /opt/distribution-3Fx/dl/
+	rm -rf 3FX-calendarManager-$(VERSION)
+
+define CC_template
+$$(OBJ_DIR)/$$(basename $(2)).o: $$(SRC_DIR)/$(2)
+	@echo "*** $$@ ***"
+	$$(CC) -c $$(CFLAGS) $$($(1)_CFLAGS) $$(CPPFLAGS) $$($(1)_CPPFLAGS) $$< -o $$@
+	@echo "*** $$@ done ***"
+	@echo
+endef
+
+define CC_SHARED_template
+$$(OBJ_DIR)/$$(basename $(2)).o: $$(SRC_DIR)/$(2)
+	@echo "*** $$@ ***"
+	$$(CC) -c $$(CFLAGS) $$(CC_SHARED) $$($(1)_CFLAGS) $$(CPPFLAGS) $$($(1)_CPPFLAGS) $$< -o $$@
+	@echo "*** $$@ done ***"
+	@echo
+endef
+
+define CXX_template
+$$(OBJ_DIR)/$$(basename $(2)).o: $$(SRC_DIR)/$(2)
+	@echo "*** $$@ ***"
+	$$(CXX) -c $$(CXXFLAGS) $$($(1)_CXXFLAGS) $$(CPPFLAGS) $$($(1)_CPPFLAGS) $$< -o $$@
+	@echo "*** $$@ done ***"
+	@echo
+endef
+
+define CXX_SHARED_template
+$$(OBJ_DIR)/$$(basename $(2)).o: $$(SRC_DIR)/$(2)
+	@echo "*** $$@ ***"
+	$$(CXX) -c $$(CXXFLAGS) $$(CC_SHARED) $$($(1)_CXXFLAGS) $$(CPPFLAGS) $$($(1)_CPPFLAGS) $$< -o $$@
+	@echo "*** $$@ done ***"
+	@echo
+endef
+
+define AR_template
+$$(LIB_DIR)/$$($(1)_NAME): $$($(1)_OBJS)
+	@echo "*** $$@ ***"
+	$$(AR) $$(ARFLAGS) $$@ $$^
+	@echo "*** $$@ done ***"
+	@echo
+endef
+
+define LIB_template
+$$(LIB_DIR)/$$($(1)_NAME): $$($(1)_OBJS)
+	@echo "*** $$@ ***"
+	$$(CC) $$(LDFLAGS) $$(LD_SHARED) $$($(1)_CFLAGS) $$($(1)_LDFLAGS) $$^ $$($(1)_LIBS) -o $$@
+	@echo "*** $$@ done ***"
+	@echo
+endef
+
+define BIN_template
+$$(BIN_DIR)/$$($(1)_NAME): $$($(1)_OBJS)
+	@echo "*** $$@ ***"
+	$$(CC) $$(LDFLAGS) $$($(1)_CFLAGS) $$($(1)_LDFLAGS) $$^ $$($(1)_LIBS) -o $$@
+	@echo "*** $$@ done ***"
+	@echo
+endef
+
+
+#------------------------------------------------------------------------------#
+# Common compilation rules
+#------------------------------------------------------------------------------#
+$(foreach name,$(NAMES),$(foreach src,$($(name)_SRCS_C),$(eval $(call CC_template,$(name),$(src)))))
+$(foreach name,$(NAMES),$(foreach src,$($(name)_SRCS_SHARED_C),$(eval $(call CC_SHARED_template,$(name),$(src)))))
+
+$(foreach name,$(NAMES),$(foreach src,$($(name)_SRCS_CPP),$(eval $(call CXX_template,$(name),$(src)))))
+$(foreach name,$(NAMES),$(foreach src,$($(name)_SRCS_SHARED_CPP),$(eval $(call CXX_SHARED_template,$(name),$(src)))))
+
+$(foreach ar,$(ARCHIVES),$(eval $(call AR_template,$(ar))))
+
+$(foreach lib,$(LIBRARIES),$(eval $(call LIB_template,$(lib))))
+
+$(foreach bin,$(BINARIES),$(eval $(call BIN_template,$(bin))))
+

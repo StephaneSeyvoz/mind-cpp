@@ -13,6 +13,7 @@
             <includes>
                 <include>${project.groupId}:adl-backend-cpp</include>
                 <include>${project.groupId}:idl-backend-cpp</include>
+                <include>${project.groupId}:idl-frontend-cpp</include>
             </includes>
             <fileMode>0644</fileMode>
         </dependencySet>
@@ -38,6 +39,17 @@
             <filtered>false</filtered>
             <outputDirectory>examples</outputDirectory>
             <fileMode>0644</fileMode>
+             <useDefaultExcludes>false</useDefaultExcludes>
+             <excludes>
+				<exclude>**/docbkx/**</exclude>
+				<exclude>**/site/**</exclude>
+				<exclude>**/target/**</exclude>
+				<exclude>**/.metadata/**</exclude>
+				<exclude>**/.settings/**</exclude>
+				<exclude>**/.localmindrepo/**</exclude>
+				<exclude>**/GeneratedCode/**</exclude>
+				<exclude>**/Pure_cpp_implementation/**</exclude>
+          	</excludes>
         </fileSet>
     </fileSets>
     <files>
@@ -52,6 +64,12 @@
             <fileMode>0755</fileMode>
             <outputDirectory>bin</outputDirectory>
             <filtered>true</filtered>
+        </file>
+        <file>
+        	<source>target/site/ZigBeeSensor.pdf</source>
+        	<fileMode>0644</fileMode>
+            <outputDirectory>examples/cpp/ZigBeeSensor</outputDirectory>
+            <!--<filtered>true</filtered>-->
         </file>
     </files>
 </assembly>

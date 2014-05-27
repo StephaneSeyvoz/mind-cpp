@@ -1,0 +1,7 @@
+primitive temperatureCluster {
+ 	provides clusterItf as cluster;
+ 	requires temperatureItf as temperatureitf;
+ 	requires sensorItf as sensoritf;
+ 
+  	source temperatureCluster.cpp;
+}

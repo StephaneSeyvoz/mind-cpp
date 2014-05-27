@@ -2,7 +2,7 @@ template st.cpp.definitions.header.Component: st.cpp.common.ComponentHelper
   implements st.cpp.definitions.header.ComponentDefinitionHeader {
 
 st.cpp.membrane.ControllerGenerator ctrlGenerator = plugin(st.cpp.membrane);
-st.interfaces.IDLDefinition idl2c = st.interfaces.IDL2C ;
+st.interfaces.IDLDefinition idl2c = st.interfaces.IDL2C ; 
 
 $${
 
@@ -32,35 +32,13 @@ ComponentDefinitionHeader(definition) ::= <<
 
 <endif>
 
-<if (definition.astNodeTypes.("component"))>
-/* Start declaring used namespaces */
-<definition.components:{using namespace __ns_<it.definitionReference.name;format="toCName">;}; separator="\n">
-/* End declaring used namespaces */
-
-<endif>
-
-
-namespace __ns_<definition.name;format="toCName"> {
-
-/* Start internal data definition: private component data + client interfaces references */
-<InternalDataDecl(definition=definition)>
-/* Stop internal data definition: private component data + client interfaces references */
-
-
-<if (definition.interfaces)>
-<if (definition.astDecorations.("serverItfInstances"))>
-/* Start definition of interface instances classes */
-<InterfaceInstancesClassDef(definition=definition)>
-/* End definition of interface instances classes */
-<endif>
-<endif>
-
-
 /* Start definition of component type */
 <DefinitionClassDef(definition=definition)>
 /* End  definition of component type */
 
-};
+<if (!(definition.astNodeTypes.("component")))>
+#include "<definition.name;format="nameToPath">.hpp"
+<endif>
 
 #endif /* __COMPONENT_<definition.name;format="toUpperCName">_ADL_HPP */
 
@@ -75,13 +53,6 @@ namespace __ns_<definition.name;format="toCName"> {
 
 DefinitionClassDef(definition) ::= <<
 class <definition.name;format="toCName">Definition <FullInheritanceDecl(definition=definition)> {
-<if (!(definition.astNodeTypes.("component")))> <! constructor and destructor for primitives !>
-public:
-  // constructor and destructor
-  inline <definition.name;format="toCName">Definition(){};
-  inline ~<definition.name;format="toCName">Definition(){};
-<endif>
-
 <if (definition.astNodeTypes.("component"))>
 public:
   // sub-components
@@ -91,6 +62,23 @@ public:
   // bindings initialization between sub-components
   <ContructorDeclInitBindings(definition=definition)>
 
+<else> <! constructor and destructor for primitives !>
+public:
+  // constructor and destructor
+  inline <definition.name;format="toCName">Definition(){};
+  inline ~<definition.name;format="toCName">Definition(){};
+
+<endif>
+<if (definition.astDecorations.("serverItfInstances"))>
+public:
+  // prototypes
+  <definition.astDecorations.("serverItfInstances"):{<InterfaceMethodsVirtualPrototypes(itf=it)>}; separator="\n">
+
+<endif>
+<if (definition.astDecorations.("clientItfInstances"))>
+public:
+  <RequiredInterfacesDecl(definition=definition)>
+
 <endif>
 };
 >>
@@ -99,69 +87,42 @@ public:
 // Full inheritance
 
 FullInheritanceDecl(definition) ::= <<
-: <ProvidedInterfacesInheritance(definition=definition)> virtual public internal_data
->>
-
-// -----------------------------------------------------------------------------
-// Internal data (private data + client interfaces references)
-
-InternalDataDecl(definition) ::= <<
-class internal_data {
-public:
-  inline internal_data(){};
-  virtual inline ~internal_data(){};
-<if (definition.astDecorations.("clientItfInstances"))>
-
-  // client interface references 
-  <definition.astDecorations.("clientItfInstances"):{<InterfaceReferencesDecl(itf=it)>}; separator="\n"> <! DeclareClientReferences will filter server interfaces !>
+<if (definition.astDecorations.("serverItfInstances"))>
+: <ProvidedInterfacesInheritance(definition=definition)>
 <endif>
-
-};
 >>
 
 // -----------------------------------------------------------------------------
 // Provided interface instances classes definition
 
 ProvidedInterfacesInheritance(definition) ::= <<
-<if (definition.astDecorations.("serverItfInstances"))><definition.astDecorations.("serverItfInstances"):{<ProvidedInterfaceInheritance(itf=it)>}; separator=", ">,<endif>
+<definition.astDecorations.("serverItfInstances"):{<ProvidedInterfaceInheritance(itf=it)>}; separator=", ">
 >>
 
 ProvidedInterfaceInheritance(itf) ::= <<
-public <it.name; format="toCName"><endif>
+public <it.signature; format="toCName">Descriptor
 >>
 
-InterfaceInstancesClassDef(definition) ::= <<
-<definition.interfaces:{<InterfaceInstanceClassDef(itf=it)>}; separator="\n">
->>
-
-InterfaceInstanceClassDef(itf) ::= <<
-<if (isServer.(itf.role))>
-class <itf.name; format="toCName"> : public virtual <itf.signature; format="toCName">Descriptor, virtual public internal_data {
-// constructor and destructor
-public:
-  inline <itf.name; format="toCName">(){};
-  inline ~<itf.name; format="toCName">(){};
-
-// prototypes
+InterfaceMethodsVirtualPrototypes(itf) ::= <<
 <methodsVirtualPrototypes(itfDef=itf.astDecorations.("interfaceDefinition"))>
-};
-<endif>  
 >>
 
 methodsVirtualPrototypes(itfDef) ::= <<
 <if (itfDef.methods)>
-public:
-  <itfDef.methods:{virtual <methodDef(method=it, methodName=it.name, withThisPtr="false")>;}; separator="\n">
+<itfDef.methods:{virtual <(idl2c.methodDef)(method=it, methodName=it.name, withThisPtr="false")> = 0;}; separator="\n">
 <endif>
 >>
 
 // -----------------------------------------------------------------------------
 // References generation
 
+RequiredInterfacesDecl(definition) ::= <<
+<definition.astDecorations.("clientItfInstances"):{<InterfaceReferencesDecl(itf=it)>}; separator="\n">
+>>
+
 InterfaceReferencesDecl(itf) ::= <<
 <itf.signature; format="toCName">Reference <itf.name; format="toCName">;
 >>
-
 
 // -----------------------------------------------------------------------------
 // Sub-components & internal bindings
@@ -173,7 +134,7 @@ SubComponentsDecl(definition) ::= <<
 >>
 
 ComponentFieldDecl(component) ::= <<
-<component.definitionReference.name; format="toCName">Definition <component.name; format="toCName">;
+<component.definitionReference.name; format="toCName"> _mind_<component.name; format="toCName">;
 >>
 
 ContructorDeclInitBindings(definition) ::= <<
@@ -189,7 +150,7 @@ ContructorDeclInitBindings(definition) ::= <<
 >>
 
 DeclareBindingDefaultInit(binding) ::= <<
-<binding.fromComponent>.<binding.fromInterface>.reference=&<binding.toComponent>;
+ _mind_<binding.fromComponent>.<binding.fromInterface>.reference=&_mind_<binding.toComponent>;
 >>
 
 // -----------------------------------------------------------------------------
@@ -202,175 +163,6 @@ UsedInterfaceDefinitions(definition) ::= <<
 UsedInterfaceDefinition(usedItfName) ::= <<
 #include "<usedItfName; format="nameToPath">.itf.hpp"
 >>
-
-// -----------------------------------------------------------------------------
-// Copied brutally from IDL2C/IDL2CPP since we need to redefine method prototypes in methodsVirtualPrototypes template
-
-methodDef(method, methodName, withThisPtr) ::= <<
-<typeQualifier(qualifiers=method)><varDef(type=method.type, name=methodPrototype(name=methodName, parameters=method.parameters, withThisPtr=withThisPtr, vaArgs=method.vaArgs))>
->>
-
-thisPointerDef ::= [
-  "true" : "void *_mind_this",
-  "typed" : "CONTEXT_PTR_DECL",
-  "false" : ""
-]
-
-thisPointerComma ::= [
-  "true" : ",",
-  "typed" : ",",
-  "false" : ""
-]
-
-noParamVoid ::= [
-  "true" : "",
-  "typed" : "",
-  "false" : "void"
-]
-
-vaArgsMap ::= [
-   "true" : "true",
-   default :
-]
-
-methodPrototype(name, parameters, withThisPtr, vaArgs) ::= <<
-<name>(<thisPointerDef.(withThisPtr)> <if(parameters)>
-<thisPointerComma.(withThisPtr)> <parameters:parameterDef(parameter=it); separator=", "> <if (vaArgs)>, ...<endif>
-<else> 
-<if (vaArgs)> <thisPointerComma.(withThisPtr)> ...
-<else>
-<noParamVoid.(withThisPtr)> 
-<endif>
-<endif>)
->>
-
-parameterDef(parameter) ::= <<
-<typeQualifier(qualifiers=parameter)><varDef(type=parameter.type, name=parameterName(parameter=parameter))>
->>
-
-parameterName(parameter) ::= <<
-<if (parameter.isOut)>
-<outParameterTemplateMap.(parameter.isOut)>
-<else>
-<outParameterTemplateMap.false>
-<endif>
->>
-
-outParameterTemplateMap ::= [
-  "true"  : "(*<parameter.name>)",
-  "false" : "<parameter.name>",
-  default : "<parameter.name>"
-]
-
-enumRefDef(type) ::= "enum <type.name>"
-
-varDef(type, name) ::= <<
-<(varDefTemplateMap.(type.astDecorations.kind))(type=type, name=name)>
->>
-
-enumVarDef(type, name) ::= "<enumDef(type=type)> <name>"
-
-enumRefVarDef(type, name) ::= "<enumRefDef(type=type)> <name>"
-
-structVarDef(type, name) ::= "<structDef(type=type)> <name>"
-
-structRefVarDef(type, name) ::= "<structRefDef(type=type)> <name>"
-
-unionVarDef(type, name) ::= "<unionDef(type=type)> <name>"
-
-unionRefVarDef(type, name) ::= "<unionRefDef(type=type)> <name>"
-
-pointerOfVarDef(type, name) ::= "<varDef(type=type.type, name=pointerOfVarName(type=type, name=name))>"
-
-pointerOfVarName(type, name) ::= "(* <typeQualifier(qualifiers=type)><name>)"
-
-arrayOfVarDef(type, name) ::= "<varDef(type=type.type, name=arrayOfVarName(type=type, name=name))>"
-
-arrayOfVarName(type, name) ::= "<name>[<if (type.constantExpression)><expression(expr=type.constantExpression)><endif>]"
-
-simpleVarDef(type, name) ::= <<
-<if (primitiveTypeNameMap.(type.name))>
-<primitiveTypeNameMap.(type.name)> <name>
-<else>
-<type.name> <name>
-<endif>
->>
-
-typedefVarDef(type, name) ::= <<
-<type.name; format="toCName"> <name>
->>
-
-varDefTemplateMap ::= [
-  "enum" :          "enumVarDef",
-  "enumRef" :       "enumRefVarDef",
-  "struct" :        "structVarDef",
-  "structRef" :     "structRefVarDef",
-  "union" :         "unionVarDef",
-  "unionRef" :      "unionRefVarDef",
-  "pointerOf" :     "pointerOfVarDef",
-  "arrayOf" :       "arrayOfVarDef",
-  "primitiveType" : "simpleVarDef",
-  "typedefRef" :    "typedefVarDef"
-]
-
-primitiveTypeNameMap ::= [
-  "string" : "__MIND_STRING_TYPEDEF"
-]
-
-expression(expr) ::= <<
-<(constantExpressionTemplateMap.(expr.astDecorations.kind))(expr=expr)>
->>
-
-binaryOpertaionExpr(expr) ::= <<
-<expr.constantExpressions:{(<expression(expr=it)>)};separator=expr.operation>
->>
-
-unaryOperationExpr(expr) ::= <<
-<expr.operation> (<expression(expr=expr.constantExpression)>)
->>
-
-castOperationExpr(expr) ::= <<
-((<varDef(type=expr.type, name="")>) <expression(expr=expr.constantExpression)>)
->>
-
-literalExpr(expr) ::= <<
-<expr.expr>
->>
-
-constantExpressionTemplateMap ::= [
-  "binaryOperation" : "binaryOpertaionExpr",
-  "unaryOperation" :  "unaryOperationExpr",
-  "castOperation" :   "castOperationExpr",
-  "literal" :         "literalExpr"
-]
-
-typeQualifier(qualifiers) ::= <<
-<constQualiferMap.(qualifiers.isConst)><volatileQualifierMap.(qualifiers.isVolatile)>
->>
-
-constQualiferMap ::= [
-  "true" : "const ",
-  "false": ""
-]
-
-volatileQualifierMap ::= [
-  "true" : "volatile ",
-  "false": ""
-]
-
-isVoidMethod(method) ::= "<(voidTypeTemplateMap.(method.type.astDecorations.kind))(type=method.type)>"
-
-voidPrimitiveType(type) ::= "<isVoidMap.(type.name)>"
-
-voidComplexType(type) ::= "<isComplexTypeVoidMap.(type)>"
-
-voidTypeTemplateMap ::= [
-  "primitiveType" : "voidPrimitiveType",
-  default         : "voidComplexType"
-]
-
-isVoidMap ::= [ "void" : "true" ]
-isComplexTypeVoidMap ::= [ default : ]
 
 }$$ 
 }
