@@ -31,5 +31,5 @@
 ## Launcher class name
 LAUNCHER=org.ow2.mind.Launcher
 
-#echo $(dirname $(readlink -m $0))/jar_launcher ${LAUNCHER} ${MIND_OPTS} -Dmindc.launcher.name=mindc ${LAUNCHER} --cpp --flatten $*
-exec $(dirname $(readlink -m $0))/jar_launcher ${LAUNCHER} ${MIND_OPTS} -Dmindc.launcher.name=mindc ${LAUNCHER} --cpp --flatten $*
+#echo $(dirname $0)/jar_launcher ${LAUNCHER} ${MIND_OPTS} -Dmindc.launcher.name=mindc ${LAUNCHER} --cpp --flatten "$@"
+exec $(dirname $0)/jar_launcher ${LAUNCHER} ${MIND_OPTS} -Dmindc.launcher.name=mindc ${LAUNCHER} --cpp --flatten "$@"
