@@ -1,13 +1,10 @@
-SUBDIRS = Autoincrementer ZigBeeSensor
+EXAMPLES = $(patsubst %/,%, $(sort $(dir $(wildcard */))))
 
-all: $(SUBDIRS)
+all: $(EXAMPLES:%=%.all)
+clean: $(EXAMPLES:%=%.clean)
 
-subdirs:
-	for dir in $(SUBDIRS); do \
-	$(MAKE) -C $$dir; \
-	done
+%.all:
+	$(MAKE) -C $(@:%.all=%) all
 
-clean:
-	for dir in $(SUBDIRS); do \
-	$(MAKE) -C $$dir clean; \
-	done
+%.clean:
+	$(MAKE) -C $(@:%.clean=%) clean
