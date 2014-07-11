@@ -1,10 +1,15 @@
-EXAMPLES = $(patsubst %/,%, $(sort $(dir $(wildcard */))))
+SUBDIRS = $(patsubst %/,%, $(sort $(dir $(wildcard */))))
 
-all: $(EXAMPLES:%=%.all)
-clean: $(EXAMPLES:%=%.clean)
+.PHONY: $(MAKECMDGOALS) $(SUBDIRS) subdir
 
-%.all:
-	$(MAKE) -C $(@:%.all=%) all
+# To handle the case of $(MAKECMDGOALS) is empty
+subdir: $(SUBDIRS)
 
-%.clean:
-	$(MAKE) -C $(@:%.clean=%) clean
+$(SUBDIRS):
+	$(MAKE) -C $@
+
+# To handle the case of $(MAKECMDGOALS) is not empty
+$(MAKECMDGOALS):
+	for dir in $(SUBDIRS); do \
+        $(MAKE) -C $$dir $(MAKECMDGOALS);\
+    done
