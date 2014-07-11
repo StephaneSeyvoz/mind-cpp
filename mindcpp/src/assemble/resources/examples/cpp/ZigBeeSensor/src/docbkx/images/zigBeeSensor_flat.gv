@@ -1,0 +1,50 @@
+digraph TopLevel {
+rankdir=LR;
+ranksep=1;
+subgraph cluster_membrane {
+URL="/home/sesa206922/mind4seSeleaseScript/mind4se-release-scripts/sh/mind4se-release/target/mind4se-compiler-0.1-SNAPSHOT/mind4se-compiler-0.1-SNAPSHOT/examples/cpp/ZigBeeSensor/src/main/mind/zigBeeSensor.adl"
+penwidth=15;
+color=blue;
+style=rounded;
+BootInstanceComp [URL="TopLevel.TopLevel.BootInstance.gv",shape=Mrecord,style=filled,fillcolor=lightgrey,label="BootInstance | {{  } | | { <entryPoint> entryPoint }} | " ];
+mainInstanceComp [URL="TopLevel.TopLevel.mainInstance.gv",shape=Mrecord,style=filled,fillcolor=lightgrey,label="mainInstance | {{ <out> out } | | { <cluster> cluster | <zigbeeitf> zigbeeitf }} | " ];
+temperatureClusterInstanceComp [URL="TopLevel.TopLevel.temperatureClusterInstance.gv",shape=Mrecord,style=filled,fillcolor=lightgrey,label="temperatureClusterInstance | {{ <cluster> cluster } | | { <sensoritf> sensoritf | <temperatureitf> temperatureitf }} | " ];
+temperatureSensorInstanceComp [URL="TopLevel.TopLevel.temperatureSensorInstance.gv",shape=Mrecord,style=filled,fillcolor=lightgrey,label="temperatureSensorInstance | {{ <sensoritf> sensoritf | <temperatureitf> temperatureitf } | | {  }} | " ];
+ledInstanceComp [URL="TopLevel.TopLevel.ledInstance.gv",shape=Mrecord,style=filled,fillcolor=lightgrey,label="ledInstance | {{ <leditf> leditf } | | {  }} | " ];
+flashmngInstanceComp [URL="TopLevel.TopLevel.flashmngInstance.gv",shape=Mrecord,style=filled,fillcolor=lightgrey,label="flashmngInstance | {{ <flashmngitf> flashmngitf } | | {  }} | " ];
+Cltflashmngitf->flashmngInstanceComp:flashmngitf[colorscheme="paired12" color=2];
+Cltleditf->ledInstanceComp:leditf[colorscheme="paired12" color=3];
+BootInstanceComp:entryPoint->mainInstanceComp:out[colorscheme="paired12" color=4];
+mainInstanceComp:cluster->temperatureClusterInstanceComp:cluster[colorscheme="paired12" color=5];
+temperatureClusterInstanceComp:sensoritf->temperatureSensorInstanceComp:sensoritf[colorscheme="paired12" color=6];
+temperatureClusterInstanceComp:temperatureitf->temperatureSensorInstanceComp:temperatureitf[colorscheme="paired12" color=7];
+mainInstanceComp:zigbeeitf->Srvzigbeeitf[colorscheme="paired12" color=8];
+
+subgraph cluster_blank {
+penwidth=15;
+color=none;
+style=rounded;
+
+subgraph cluster_zigBeeStackInstance {
+URL="/home/sesa206922/mind4seSeleaseScript/mind4se-release-scripts/sh/mind4se-release/target/mind4se-compiler-0.1-SNAPSHOT/mind4se-compiler-0.1-SNAPSHOT/examples/cpp/ZigBeeSensor/src/main/mind/zigBeeStack.adl"
+penwidth=5;
+color=blue;
+style=rounded;
+
+afInstanceComp [URL="TopLevel.TopLevel.zigBeeStackInstance.afInstance.gv",shape=Mrecord,style=filled,fillcolor=lightgrey,label="afInstance | {{ <afitf> afitf } | | { <nwkitf> nwkitf }} | " ];
+nwkInstanceComp [URL="TopLevel.TopLevel.zigBeeStackInstance.nwkInstance.gv",shape=Mrecord,style=filled,fillcolor=lightgrey,label="nwkInstance | {{ <nwkitf> nwkitf } | | { <flashmngitf> flashmngitf | <leditf> leditf }} | " ];
+sysInstanceComp [URL="TopLevel.TopLevel.zigBeeStackInstance.sysInstance.gv",shape=Mrecord,style=filled,fillcolor=lightgrey,label="sysInstance | {{ <sysitf> sysitf } | | {  }} | " ];
+zigbeestackAPIComp [URL="TopLevel.TopLevel.zigBeeStackInstance.zigbeestackAPI.gv",shape=Mrecord,style=filled,fillcolor=lightgrey,label="zigbeestackAPI | {{ <zigbeeitf> zigbeeitf } | | { <afitf> afitf | <sysitf> sysitf }} | " ];
+zigbeestackAPIComp:afitf->afInstanceComp:afitf[colorscheme="paired12" color=2];
+afInstanceComp:nwkitf->nwkInstanceComp:nwkitf[colorscheme="paired12" color=3];
+zigbeestackAPIComp:sysitf->sysInstanceComp:sysitf[colorscheme="paired12" color=4];
+nwkInstanceComp:flashmngitf->Cltflashmngitf[colorscheme="paired12" color=5];
+nwkInstanceComp:leditf->Cltleditf[colorscheme="paired12" color=6];
+Srvzigbeeitf->zigbeestackAPIComp:zigbeeitf[colorscheme="paired12" color=7];
+{rank=source; color=none; Srvzigbeeitf [shape=Mrecord,style=filled,fillcolor=red,label="zigbeeitf", URL="/home/sesa206922/mind4seSeleaseScript/mind4se-release-scripts/sh/mind4se-release/target/mind4se-compiler-0.1-SNAPSHOT/mind4se-compiler-0.1-SNAPSHOT/examples/cpp/ZigBeeSensor/src/main/mind/zigBeeItf.itf", height=1 ];}
+{rank=sink; color=none; Cltflashmngitf [shape=Mrecord,style=filled,fillcolor=green,label="flashmngitf", URL="/home/sesa206922/mind4seSeleaseScript/mind4se-release-scripts/sh/mind4se-release/target/mind4se-compiler-0.1-SNAPSHOT/mind4se-compiler-0.1-SNAPSHOT/examples/cpp/ZigBeeSensor/src/main/mind/FlashMngItf.itf", height=1 ];Cltleditf [shape=Mrecord,style=filled,fillcolor=green,label="leditf", URL="/home/sesa206922/mind4seSeleaseScript/mind4se-release-scripts/sh/mind4se-release/target/mind4se-compiler-0.1-SNAPSHOT/mind4se-compiler-0.1-SNAPSHOT/examples/cpp/ZigBeeSensor/src/main/mind/ledItf.itf", height=1 ];}
+}
+}
+
+}
+}
