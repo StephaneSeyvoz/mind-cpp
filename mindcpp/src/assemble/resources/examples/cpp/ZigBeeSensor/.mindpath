@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <mindpath>
-	<mindpathentry kind="SOURCE" path="/ZigBeeSensor/libs"/>
-	<mindpathentry kind="SOURCE" path="/ZigBeeSensor/src/main/mind"/>
-	<mindpathentry kind="APPLI" path="zigBeeSensor:zigBeeSensor"/>
 	<mindpathentry kind="SOURCE" path="/ZigBeeSensor/runtime"/>
-	<mindpathentry kind="INCLUDE_PATH" path="/ZigBeeSensor/target/Default/binaries"/>
+	<mindpathentry kind="SOURCE" path="/ZigBeeSensor/src/main/mind"/>
+	<mindpathentry kind="SOURCE" path="/ZigBeeSensor/libs"/>
 	<mindpathentry kind="SOURCE" path="/ZigBeeSensor/target/Default/binaries"/>
+	<mindpathentry kind="APPLI" path="zigBeeSensor:zigBeeSensor"/>
+	<mindpathentry kind="INCLUDE_PATH" path="/ZigBeeSensor/target/Default/binaries"/>
 </mindpath>

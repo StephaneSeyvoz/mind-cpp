@@ -66,6 +66,7 @@
 					<sourceEntries>
 						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="runtime"/>
 						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="src/main/mind"/>
+						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="src/test/mind"/>
 						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="target/Default/binaries"/>
 					</sourceEntries>
 				</configuration>
@@ -99,59 +100,6 @@
 			<resource resourceType="PROJECT" workspacePath="/Autoincrementer"/>
 		</configuration>
 	</storageModule>
-	<storageModule moduleId="org.eclipse.cdt.make.core.buildtargets">
-		<buildTargets>
-			<target name="all" path="" targetID="org.eclipse.cdt.build.MakeTargetBuilder">
-				<buildCommand>make</buildCommand>
-				<buildTarget>CONFIGURATION=${ConfigName} all</buildTarget>
-				<stopOnError>true</stopOnError>
-				<useDefaultCommand>true</useDefaultCommand>
-				<runAllBuilders>true</runAllBuilders>
-			</target>
-			<target name="clean" path="" targetID="org.eclipse.cdt.build.MakeTargetBuilder">
-				<buildCommand>make</buildCommand>
-				<buildTarget>CONFIGURATION=${ConfigName} clean</buildTarget>
-				<stopOnError>true</stopOnError>
-				<useDefaultCommand>true</useDefaultCommand>
-				<runAllBuilders>true</runAllBuilders>
-			</target>
-			<target name="clean_all" path="" targetID="org.eclipse.cdt.build.MakeTargetBuilder">
-				<buildCommand>make</buildCommand>
-				<buildTarget>CONFIGURATION=${ConfigName} clean_all</buildTarget>
-				<stopOnError>true</stopOnError>
-				<useDefaultCommand>true</useDefaultCommand>
-				<runAllBuilders>true</runAllBuilders>
-			</target>
-			<target name="compile" path="" targetID="org.eclipse.cdt.build.MakeTargetBuilder">
-				<buildCommand>make</buildCommand>
-				<buildTarget>CONFIGURATION=${ConfigName} compile</buildTarget>
-				<stopOnError>true</stopOnError>
-				<useDefaultCommand>true</useDefaultCommand>
-				<runAllBuilders>true</runAllBuilders>
-			</target>
-			<target name="doc" path="" targetID="org.eclipse.cdt.build.MakeTargetBuilder">
-				<buildCommand>make</buildCommand>
-				<buildTarget>CONFIGURATION=${ConfigName} doc</buildTarget>
-				<stopOnError>true</stopOnError>
-				<useDefaultCommand>true</useDefaultCommand>
-				<runAllBuilders>true</runAllBuilders>
-			</target>
-			<target name="graph" path="" targetID="org.eclipse.cdt.build.MakeTargetBuilder">
-				<buildCommand>make</buildCommand>
-				<buildTarget>CONFIGURATION=${ConfigName} graph</buildTarget>
-				<stopOnError>true</stopOnError>
-				<useDefaultCommand>true</useDefaultCommand>
-				<runAllBuilders>true</runAllBuilders>
-			</target>
-			<target name="test" path="" targetID="org.eclipse.cdt.build.MakeTargetBuilder">
-				<buildCommand>make</buildCommand>
-				<buildTarget>CONFIGURATION=${ConfigName} test</buildTarget>
-				<stopOnError>true</stopOnError>
-				<useDefaultCommand>true</useDefaultCommand>
-				<runAllBuilders>true</runAllBuilders>
-			</target>
-		</buildTargets>
-	</storageModule>
 	<storageModule moduleId="scannerConfiguration">
 		<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
 		<scannerConfigBuildInfo instanceId="org.ow2.mindEd.ide.core.build.68449699;org.ow2.mindEd.ide.core.build.68449699.;cdt.managedbuild.tool.gnu.cpp.compiler.mingw.base.1115194737;cdt.managedbuild.tool.gnu.cpp.compiler.input.1164481472">
@@ -165,4 +113,72 @@
 		</scannerConfigBuildInfo>
 	</storageModule>
 	<storageModule moduleId="org.eclipse.cdt.internal.ui.text.commentOwnerProjectMappings"/>
+	<storageModule moduleId="org.eclipse.cdt.make.core.buildtargets">
+		<buildTargets>
+			<target name="all" path="" targetID="org.eclipse.cdt.build.MakeTargetBuilder">
+				<buildCommand>make</buildCommand>
+				<buildArguments/>
+				<buildTarget>CONFIGURATION=${ConfigName} all</buildTarget>
+				<stopOnError>true</stopOnError>
+				<useDefaultCommand>true</useDefaultCommand>
+				<runAllBuilders>true</runAllBuilders>
+			</target>
+			<target name="clean" path="" targetID="org.eclipse.cdt.build.MakeTargetBuilder">
+				<buildCommand>make</buildCommand>
+				<buildArguments/>
+				<buildTarget>CONFIGURATION=${ConfigName} clean</buildTarget>
+				<stopOnError>true</stopOnError>
+				<useDefaultCommand>true</useDefaultCommand>
+				<runAllBuilders>true</runAllBuilders>
+			</target>
+			<target name="clean_compile" path="" targetID="org.eclipse.cdt.build.MakeTargetBuilder">
+				<buildCommand>make</buildCommand>
+				<buildArguments/>
+				<buildTarget>CONFIGURATION=${ConfigName} clean_compile</buildTarget>
+				<stopOnError>true</stopOnError>
+				<useDefaultCommand>true</useDefaultCommand>
+				<runAllBuilders>true</runAllBuilders>
+			</target>
+			<target name="compile" path="" targetID="org.eclipse.cdt.build.MakeTargetBuilder">
+				<buildCommand>make</buildCommand>
+				<buildArguments/>
+				<buildTarget>CONFIGURATION=${ConfigName} compile</buildTarget>
+				<stopOnError>true</stopOnError>
+				<useDefaultCommand>true</useDefaultCommand>
+				<runAllBuilders>true</runAllBuilders>
+			</target>
+			<target name="doc" path="" targetID="org.eclipse.cdt.build.MakeTargetBuilder">
+				<buildCommand>make</buildCommand>
+				<buildArguments/>
+				<buildTarget>CONFIGURATION=${ConfigName} doc</buildTarget>
+				<stopOnError>true</stopOnError>
+				<useDefaultCommand>true</useDefaultCommand>
+				<runAllBuilders>true</runAllBuilders>
+			</target>
+			<target name="graph" path="" targetID="org.eclipse.cdt.build.MakeTargetBuilder">
+				<buildCommand>make</buildCommand>
+				<buildArguments/>
+				<buildTarget>CONFIGURATION=${ConfigName} graph</buildTarget>
+				<stopOnError>true</stopOnError>
+				<useDefaultCommand>true</useDefaultCommand>
+				<runAllBuilders>true</runAllBuilders>
+			</target>
+			<target name="test" path="" targetID="org.eclipse.cdt.build.MakeTargetBuilder">
+				<buildCommand>make</buildCommand>
+				<buildArguments/>
+				<buildTarget>CONFIGURATION=${ConfigName} test</buildTarget>
+				<stopOnError>true</stopOnError>
+				<useDefaultCommand>true</useDefaultCommand>
+				<runAllBuilders>true</runAllBuilders>
+			</target>
+			<target name="dependencies" path="" targetID="org.eclipse.cdt.build.MakeTargetBuilder">
+				<buildCommand>make</buildCommand>
+				<buildArguments/>
+				<buildTarget>CONFIGURATION=${ConfigName} dependencies</buildTarget>
+				<stopOnError>true</stopOnError>
+				<useDefaultCommand>true</useDefaultCommand>
+				<runAllBuilders>true</runAllBuilders>
+			</target>
+		</buildTargets>
+	</storageModule>
 </cproject>
