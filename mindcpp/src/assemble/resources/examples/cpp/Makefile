@@ -10,6 +10,6 @@ $(SUBDIRS):
 
 # To handle the case of $(MAKECMDGOALS) is not empty
 $(MAKECMDGOALS):
-	for dir in $(SUBDIRS); do \
-        $(MAKE) -C $$dir $(MAKECMDGOALS);\
+	@for dir in $(SUBDIRS); do \
+        $(MAKE) -C $$dir $(MAKECMDGOALS) || exit $$? ;\
     done

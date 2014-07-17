@@ -2,6 +2,7 @@
 <mindpath>
 	<mindpathentry kind="SOURCE" path="/Autoincrementer/runtime"/>
 	<mindpathentry kind="SOURCE" path="/Autoincrementer/src/main/mind"/>
-	<mindpathentry kind="APPLI" path="autoincrementer:autoincrementer"/>
 	<mindpathentry kind="SOURCE" path="/Autoincrementer/target/Default/binaries"/>
+	<mindpathentry kind="APPLI" path="autoincrementer:autoincrementer"/>
+	<mindpathentry kind="INCLUDE_PATH" path="/Autoincrementer/target/Default/binaries"/>
 </mindpath>
