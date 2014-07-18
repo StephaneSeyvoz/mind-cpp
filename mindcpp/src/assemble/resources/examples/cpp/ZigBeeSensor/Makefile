@@ -101,7 +101,11 @@ endif
 ldFlagsArg=
 ifdef ldFlags
 	ifneq ($(ldFlags), "")
-		ldFlagsArg=--ld-flags="$(ldFlags)"
+		ifneq (,$(findstring Windows, $(OS)))
+			ldFlagsArg=--ld-flags="$(ldFlags) -L./libs/win32"
+		else 
+			ldFlagsArg=--ld-flags="$(ldFlags) -L./libs/linux"
+		endif
 	endif
 endif
 
