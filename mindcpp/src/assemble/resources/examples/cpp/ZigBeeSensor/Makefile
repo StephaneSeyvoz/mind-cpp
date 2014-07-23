@@ -108,7 +108,7 @@ endif
 ldFlagsArg=
 ifdef ldFlags
 	ifneq ($(ldFlags), "")
-		ldFlagsArgs=--ld-flags="$(ldFlags)"
+		ldFlagsArg=--ld-flags="$(ldFlags)"
 	endif
 endif
 
