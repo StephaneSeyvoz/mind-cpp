@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   
@@ -10,31 +11,25 @@
   <name>mindcpp</name>
   <description>C++ integration module</description>
   
-  <groupId>org.ow2.mind</groupId>
   <artifactId>mindcpp</artifactId>
-
   <packaging>pom</packaging>
   
   <dependencies>
   	<dependency>
-	        <version>${project.version}</version>
 	        <groupId>${project.groupId}</groupId>
   		<artifactId>adl-backend-cpp</artifactId>
   	</dependency>
   	<dependency>
-                <version>${project.version}</version>
                 <groupId>${project.groupId}</groupId>
   		<artifactId>fractal-runtime-cpp</artifactId>
   	</dependency>
   	<dependency>
-                <version>${project.version}</version>
                 <groupId>${project.groupId}</groupId>
   		<artifactId>idl-backend-cpp</artifactId>
   	</dependency>
   	<dependency>
   		<groupId>${project.groupId}</groupId>
   		<artifactId>idl-frontend-cpp</artifactId>
-  		<version>${project.version}</version>
   	</dependency>
   </dependencies> 
   

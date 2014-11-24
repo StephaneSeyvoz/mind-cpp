@@ -3,14 +3,18 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	
+    <parent>
+        <groupId>org.ow2.mind</groupId>
+        <artifactId>mind-parent</artifactId>
+        <version>7-SNAPSHOT</version>
+    </parent>
 	<name>mind-cpp multimodule project</name>
 	<description>Perform the build of the c++-related submodules (including the integration module mindcpp) </description>
 	
-	<packaging>pom</packaging>
-	
+
 	<artifactId>mind-cpp</artifactId>
-	<groupId>org.ow2.mind</groupId>
 	<version>0.1.1-SNAPSHOT</version>
+	<packaging>pom</packaging>
 
 	<developers>
 		<developer>
@@ -36,6 +40,10 @@
 	<contributors>
 	</contributors>
 
+	<properties>
+		<modules.common.version>2.2-SNAPSHOT</modules.common.version>
+	</properties>
+			
     <build>
         <pluginManagement>
             <plugins>
@@ -61,7 +69,7 @@
 	</modules>
 
 	<dependencyManagement>
-        <dependencies>
+		<dependencies>
 			<dependency>
 				<groupId>${project.groupId}</groupId>
 				<artifactId>adl-backend-cpp</artifactId>
@@ -91,7 +99,7 @@
 				<artifactId>idl-frontend-cpp</artifactId>
 				<version>${project.version}</version>
 			</dependency>
-        </dependencies>
+		</dependencies>
 	</dependencyManagement>
 
 </project>
