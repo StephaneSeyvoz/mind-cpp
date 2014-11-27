@@ -1,39 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
+    <modelVersion>4.0.0</modelVersion>
   
-       <parent>
-        <groupId>org.ow2.mind</groupId>
-       <artifactId>mind-cpp</artifactId>
-        <version>0.1.1-SNAPSHOT</version>
-       </parent>
- 
-  <name>mindcpp</name>
-  <description>C++ integration module</description>
-  
-  <artifactId>mindcpp</artifactId>
-  <packaging>pom</packaging>
-  
-  <dependencies>
-  	<dependency>
-	        <groupId>${project.groupId}</groupId>
-  		<artifactId>adl-backend-cpp</artifactId>
-  	</dependency>
-  	<dependency>
-                <groupId>${project.groupId}</groupId>
-  		<artifactId>fractal-runtime-cpp</artifactId>
-  	</dependency>
-  	<dependency>
-                <groupId>${project.groupId}</groupId>
-  		<artifactId>idl-backend-cpp</artifactId>
-  	</dependency>
-  	<dependency>
-  		<groupId>${project.groupId}</groupId>
-  		<artifactId>idl-frontend-cpp</artifactId>
-  	</dependency>
-  </dependencies> 
-  
-  <build>
+        <parent>
+            <groupId>org.ow2.mind</groupId>
+            <artifactId>mind-cpp</artifactId>
+            <version>0.1.1-SNAPSHOT</version>
+        </parent>
+
+    <name>mindcpp</name>
+    <description>C++ integration module</description>
+
+    <artifactId>mindcpp</artifactId>
+    <packaging>pom</packaging>
+
+    <dependencies>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>adl-backend-cpp</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>fractal-runtime-cpp</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>idl-backend-cpp</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>idl-frontend-cpp</artifactId>
+        </dependency>
+    </dependencies> 
+
+    <build>
         <plugins>
             <plugin>
                 <artifactId>maven-assembly-plugin</artifactId>
@@ -65,15 +65,31 @@
                             </descriptors>
                             <outputDirectory>
                                 ${project.build.directory}
-							</outputDirectory>
+                            </outputDirectory>
                         </configuration>
                     </execution-->
                 </executions>
             </plugin>
 
             <plugin>
+                <artifactId>maven-release-plugin</artifactId>
+                <configuration>
+                    <!-- Sub modules have the same version as this one. -->
+                    <autoVersionSubmodules>true</autoVersionSubmodules>
+
+                    <!--
+                        Workaround of
+                        http://jira.codehaus.org/browse/MJAVADOC-276. Force
+                        installation of artifacts at preparation stage
+                    -->
+                    <preparationGoals>clean install</preparationGoals>
+                </configuration>
+            </plugin>
+
+            <!-- User documentation generation -->	    
+            <plugin>
                 <artifactId>maven-resources-plugin</artifactId>
-				<version>2.5</version>
+                <version>2.5</version>
                 <inherited>false</inherited>
                 <executions>
                     <execution>
@@ -97,25 +113,11 @@
             </plugin>
 
             <plugin>
-                <artifactId>maven-release-plugin</artifactId>
-                <configuration>
-                    <!-- Sub modules have the same version as this one. -->
-                    <autoVersionSubmodules>true</autoVersionSubmodules>
-
-                    <!--
-                        Workaround of
-                        http://jira.codehaus.org/browse/MJAVADOC-276. Force
-                        installation of artifacts at preparation stage
-                    -->
-                    <preparationGoals>clean install</preparationGoals>
-                </configuration>
-            </plugin>
-
-            <plugin>
                 <groupId>com.agilejava.docbkx</groupId>
                 <artifactId>docbkx-maven-plugin</artifactId>
                 <inherited>false</inherited>
                 <executions>
+                    <!-- User Guide PDF execution -->
                     <execution>
                         <id>pdf</id>
                         <phase>prepare-package</phase>
@@ -125,11 +127,11 @@
                         <inherited>false</inherited>
                         <configuration>
                             <targetDirectory>${project.build.directory}/site</targetDirectory>
-			    <sourceDirectory>${basedir}/src/assemble/resources/examples/cpp/ZigBeeSensor/src/docbkx</sourceDirectory>
-                            <foCustomization>${basedir}/src/assemble/resources/examples/cpp/ZigBeeSensor/src/docbkx/xsl/minddoc-fo.xsl</foCustomization>
-                            <draftWatermarkImage>${basedir}/src/assemble/resources/examples/cpp/ZigBeeSensor/src/docbkx/images/draft.png</draftWatermarkImage>
+                            <foCustomization>${project.build.directory}/site/xsl/minddoc-fo.xsl</foCustomization>
+                            <draftWatermarkImage>${project.build.directory}/site/images/draft.png</draftWatermarkImage>
                         </configuration>
                     </execution>
+                    <!-- User Guide HTML executions -->
                     <execution>
                         <id>html-printable</id>
                         <phase>prepare-package</phase>
@@ -139,13 +141,11 @@
                         <inherited>false</inherited>
                         <configuration>
                             <targetDirectory>${project.build.directory}/site/printable</targetDirectory>
-			    <sourceDirectory>${basedir}/src/assemble/resources/examples/cpp/ZigBeeSensor/src/docbkx</sourceDirectory>
                             <imgSrcPath>../</imgSrcPath>
-                            <htmlCustomization>${basedir}/src/assemble/resources/examples/cpp/ZigBeeSensor/src/docbkx/xsl/minddoc-html-printable.xsl</htmlCustomization>
+                            <htmlCustomization>${project.build.directory}/site/xsl/minddoc-html-printable.xsl</htmlCustomization>
                             <htmlStylesheet>../css/docbook-printable.css</htmlStylesheet>
                         </configuration>
                     </execution>
-                    <!-- User Guide HTML executions -->
                     <execution>
                         <id>userguide-html</id>
                         <phase>prepare-package</phase>
@@ -155,9 +155,8 @@
                         <inherited>false</inherited>
                         <configuration>
                             <includes>ZigBeeSensor.xml</includes>
-			    <sourceDirectory>${basedir}/src/assemble/resources/examples/cpp/ZigBeeSensor/src/docbkx</sourceDirectory>
                             <targetDirectory>${project.build.directory}/site</targetDirectory>
-                            <htmlCustomization>${basedir}/src/assemble/resources/examples/cpp/ZigBeeSensor/src/docbkx/xsl/minddoc-html.xsl</htmlCustomization>
+                            <htmlCustomization>${project.build.directory}/site/xsl/minddoc-html.xsl</htmlCustomization>
                             <htmlStylesheet>css/docbook.css</htmlStylesheet>
                             <customizationParameters>
                                 <parameter>
@@ -189,10 +188,9 @@
                         <configuration>
                             <includes>ZigBeeSensor.xml</includes>
                             <chunkedOutput>true</chunkedOutput>
-			    <sourceDirectory>${basedir}/src/assemble/resources/examples/cpp/ZigBeeSensor/src/docbkx</sourceDirectory>
                             <targetDirectory>${project.build.directory}/site/userGuide</targetDirectory>
                             <imgSrcPath>../</imgSrcPath>
-                            <htmlCustomization>${basedir}/src/assemble/resources/examples/cpp/ZigBeeSensor/src/docbkx/xsl/minddoc-chunk.xsl</htmlCustomization>
+                            <htmlCustomization>${project.build.directory}/site/xsl/minddoc-chunk.xsl</htmlCustomization>
                             <htmlStylesheet>../css/docbook-chunk.css</htmlStylesheet>
                             <customizationParameters>
                                 <parameter>
@@ -216,11 +214,8 @@
                     </execution>
                 </executions>
                 <configuration>
-		    <sourceDirectory>${basedir}/src/assemble/resources/examples/cpp/ZigBeeSensor/src/docbkx</sourceDirectory>
+                    <sourceDirectory>${basedir}/src/assemble/resources/examples/cpp/ZigBeeSensor/src/docbkx</sourceDirectory>
                     <targetDirectory>${project.build.directory}/site</targetDirectory>
-                    <xslthlConfig>${basedir}/src/assemble/resources/examples/cpp/ZigBeeSensor/src/docbkx/xsl/xslthl-config.xml</xslthlConfig>
-                    <highlightSource>1</highlightSource>
-                    <xincludeSupported>true</xincludeSupported>
                 </configuration>
             </plugin>
 
@@ -233,7 +228,7 @@
                     <executable>make</executable>
                     <workingDirectory>
                         ${project.build.directory}/${project.build.finalName}-bin/${project.build.finalName}/examples
-					</workingDirectory>
+                    </workingDirectory>
                     <arguments>
                         <argument>MIND_ROOT=../../</argument>
                         <argument>clean</argument>
