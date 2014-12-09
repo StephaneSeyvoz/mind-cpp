@@ -1,36 +1,35 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-       <parent>
-        <groupId>org.ow2.mind</groupId>
-       <artifactId>mind-cpp</artifactId>
-        <version>0.1.1-SNAPSHOT</version>
-       </parent>
- 
-  <name>IDL C++ backend module</name>
-  <description>Module for the generation of C++ header files from IDL definitions.</description>
-  
-  <artifactId>idl-backend-cpp</artifactId>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.ow2.mind</groupId>
+		<artifactId>mind-cpp</artifactId>
+		<version>0.1.1-SNAPSHOT</version>
+	</parent>
 
-  
-  <dependencies>
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>idl-backend</artifactId>
-            <version>${modules.common.version}</version>
-        </dependency>
-        
-        <!-- Only for CppAnnotation -->
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>adl-backend-cpp</artifactId>
-        </dependency>
+	<name>IDL C++ backend module</name>
+	<description>Module for the generation of C++ header files from IDL definitions.</description>
 
-        <dependency>
-            <groupId>org.testng</groupId>
-            <artifactId>testng</artifactId>
-            <classifier>jdk15</classifier>
-            <version>5.8</version>
-        </dependency>
-    </dependencies>
-  
+	<artifactId>idl-backend-cpp</artifactId>
+
+
+	<dependencies>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>idl-backend</artifactId>
+			<version>${modules.common.version}</version>
+		</dependency>
+
+		<!-- Only for CppAnnotation -->
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>adl-backend-cpp</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.testng</groupId>
+			<artifactId>testng</artifactId>
+		</dependency>
+	</dependencies>
+
 </project>
